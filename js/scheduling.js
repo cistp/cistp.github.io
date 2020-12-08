@@ -17,16 +17,18 @@ function unique(arr) {
   }
   return array;
 }
-  
-const query = new AV.Query('tutorList');
-query.equalTo('isTutor', true);
-query.find().then((tutors) => {
-  for (let index = 0; index < tutors.length; index++) {
-    const tutor = tutors[index];
-    const name = tutor.get('tutorName');
-    const id = tutor.get('user').id;
-    $("#selTutor").append("<option value='" + id + "'>" + name + "</option>");
-  }
+
+$(document).ready(function () {
+  const query = new AV.Query('tutorList');
+  query.equalTo('isTutor', true);
+  query.find().then((tutors) => {
+    for (let index = 0; index < tutors.length; index++) {
+      const tutor = tutors[index];
+      const name = tutor.get('tutorName');
+      const id = tutor.get('user').id;
+      $("#selTutor").append("<option value='" + id + "'>" + name + "</option>");
+    }
+  });
 });
 
 $('#selTutor').change(function (e) { 
@@ -120,3 +122,4 @@ $('.scheduleClass').click(function (e) {
     }
   });
 });
+

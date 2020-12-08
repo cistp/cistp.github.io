@@ -18,6 +18,16 @@ $('.dateInput').flatpickr(
     }
 );
 
+function unique(arr) {
+    var array = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (array .indexOf(arr[i]) === -1) {
+            array .push(arr[i])
+        }
+    }
+    return array;
+  }
+
 $(document).ready(function () {
     const query = new AV.Query('Classes');
     const date = $('.dateInput').val();
@@ -85,6 +95,16 @@ $(document).ready(function () {
             $('.listTutee').append(comb2);
         }
     })
+    const query3 = new AV.Query('tutorList');
+    query3.equalTo('isTutor', true);
+    query3.find().then((tutors) => {
+    for (let index = 0; index < tutors.length; index++) {
+        const tutor = tutors[index];
+        const name = tutor.get('tutorName');
+        const id = tutor.get('user').id;
+        $("#selTutor").append("<option value='" + id + "'>" + name + "</option>");
+    }
+    });
 });
 
 $('.dateInput').change(function (e) { 
@@ -197,6 +217,7 @@ $('#form-register').submit(function (e) {
     const username = $('#username').val();
     const password = $('#pass').val();
     const realname = $('#name').val();
+    const seasionToken = AV.User.current().getSessionToken();
     const user = new AV.User();
     user.setUsername(username);
     user.setPassword(password);
@@ -213,9 +234,78 @@ $('#form-register').submit(function (e) {
     tutorlist.set('tutorName', realname);
     tutorlist.set('user', AV.User.current());
     tutorlist.save().then((tutorlist) => {
-        AV.User.logOut();
-        location.reload();
+        AV.User.become(seasionToken).then((user) => {
+            return;
+          }, (error) => {
+            alert("Error when changing account.")
+          });
       }, (error) => {
         alert("Error when saving Tutor")
       })
+});
+
+$('#selTutor').change(function (e) { 
+    e.preventDefault();
+    tutorID = $(this).val();
+    const query = new AV.Query('Classes');
+    const user = AV.Object.createWithoutData('_User', tutorID);
+    let array = [];
+    query.equalTo('tutor', user);
+    query.find().then((dates) => {
+        for (let index = 0; index < dates.length; index++) {
+        const date = dates[index];
+        array.push(date.get('date'));
+        };
+        uArray = unique(array);
+        for (let index = 0; index < uArray.length; index++) {
+        const element = uArray[index];
+        $("#selDate").append("<option>" + element + "</option>");
+        }
+    });
+});
+
+$('#selDate').change(function (e) { 
+    e.preventDefault();
+    const query = new AV.Query('Classes');
+    const user = AV.Object.createWithoutData('_User', tutorID);
+    date = $('#selDate option:selected').text();
+    query.equalTo('tutor', user);
+    query.equalTo('date', date);
+    query.find().then((times) => {
+        for (let index = 0; index < times.length; index++) {
+        const time = times[index];
+        $("#selTime").append("<option value='" + time + "'>" + time.get('startTime') + "</option>");
+        }
+    });
+});
+
+$('#selTime').change(function (e) { 
+    e.preventDefault();
+    const query = new AV.Query('Classes');
+    const user = AV.Object.createWithoutData('_User', tutorID);
+    const time = $('#selTime option:selected').text();
+    query.equalTo('tutor', user);
+    query.equalTo('date', date);
+    query.equalTo('startTime', time);
+    query.find().then((class_) => {
+        $('.Listtutee').html("");
+        const tutee = class_[0].get('tutee');
+        const elementID = class_[0].id;
+        for (let index = 0; index < tutee.length; index++) {
+            const element = tutee[index];
+            let comb = "<tr><td>" + element +'</td><td><button type="button" class="removeTime btn btn-outline-primary" value="' + elementID + '" tutee="' + element + '"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button></td></tr>';
+            $('.Listtutee').append(comb);
+        }
+    });
+});
+
+$(".Listtutee").on('click', '.removeTime',function (e) { 
+    e.preventDefault();
+    const classObj = AV.Object.createWithoutData('Classes', $(this).attr('value'));
+    classObj.remove('tutee', $(this).attr('tutee'));
+    classObj.increment('tuteeAmount', -1);
+    classObj.save();
+    setTimeout(() => {
+        location.reload();
+    }, 50);
 });

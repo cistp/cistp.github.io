@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>control center - CIS Tutoring Program</title>
+    <title>Control Center - CIS Tutoring Program</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -54,7 +54,29 @@
             </div>
         </div>
     </div>
-    <div class="scheduleTab" style="display: none;"></div>
+    <div class="scheduleTab" style="display: none;">
+        <div class="container-fluid" style="position: relative; top: 70px;">
+            <h4>Class Cancellation:</h4>
+            <select id='selTutor' class="form-control" style='width: auto;'>
+                <option value='0'>Select Tutor</option>
+            </select>
+            <select id='selDate' class="form-control" style='width: auto;'>
+                <option value='0'>Select Date</option>
+            </select>
+            <select id='selTime' class="form-control" style='width: auto;'>
+                <option value='0'>Select Time</option>
+            </select>
+            <table class="table" style="position: relative; top:15px;">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody class="Listtutee"></tbody>
+            </table>
+        </div>
+    </div>
     <div class="userTab" style="display: none;">
         <div class="container-fluid" style="position: relative; top: 70px;">
             <div class="card text-white bg-info">
