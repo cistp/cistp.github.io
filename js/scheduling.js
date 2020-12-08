@@ -34,7 +34,6 @@ $(document).ready(function () {
 $('#selTutor').change(function (e) { 
   e.preventDefault();
   tutorID = $(this).val();
-  console.log(tutorID);
   $(".step1").fadeOut();
   setTimeout(() => {
     $(".step2").fadeIn();
