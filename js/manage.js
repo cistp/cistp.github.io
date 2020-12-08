@@ -218,14 +218,14 @@ $('#form-register').submit(function (e) {
     const password = $('#pass').val();
     const realname = $('#name').val();
     const seasionToken = AV.User.current().getSessionToken();
-    const user = new AV.User();
     let userID;
+    const user = new AV.User();
     user.setUsername(username);
     user.setPassword(password);
     user.set('role', 'Tutor');
     user.signUp().then((user) => {
         alert(`Registered. ObjectID: ${user.id}`);
-        userID = user;
+        userID = user.id;
       }, (error) => {
         alert("User already exists");
         return;
@@ -234,7 +234,7 @@ $('#form-register').submit(function (e) {
     const tutorlist = new tutorList();
     tutorlist.set('isTutor', true);
     tutorlist.set('tutorName', realname);
-    tutorlist.set('user', userID);
+    tutorlist.set('user', AV.Object.createWithoutData('_User', userID));
     tutorlist.save().then((tutorlist) => {
         AV.User.become(seasionToken).then((user) => {
             return;
