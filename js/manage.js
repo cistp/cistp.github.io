@@ -172,7 +172,7 @@ $('.dateInput').change(function (e) {
 $('.logout').click(function (e) {
     e.preventDefault();
     AV.User.logOut();
-    window.location.href = "manage_Login.html";
+    window.location.href = "manage_login.html";
 });
 
 $('.calendar').click(function (e) { 
