@@ -233,7 +233,6 @@ $('#form-register').submit(function (e) {
     tutorlist.set('isTutor', true);
     tutorlist.set('tutorName', realname);
     tutorlist.set('user', user);
-    console.log(user);
     tutorlist.save().then((tutorlist) => {
         AV.User.become(seasionToken).then((user) => {
             return;
@@ -241,7 +240,7 @@ $('#form-register').submit(function (e) {
             alert("Error when changing account.")
           });
       }, (error) => {
-        alert("Error when saving Tutor")
+        alert(error);
       })
 });
 
