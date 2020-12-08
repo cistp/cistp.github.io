@@ -33,7 +33,7 @@ $(document).ready(function () {
 
 $('#selTutor').change(function (e) { 
   e.preventDefault();
-  tutorID = $(this).val();
+  tutorID = $(this).attr("value");
   $(".step1").fadeOut();
   setTimeout(() => {
     $(".step2").fadeIn();
