@@ -5,10 +5,10 @@ AV.init({
   });
 const currentUser = AV.User.current();
 if (!currentUser) {
-    window.location.href = 'manage_Login.html';
+    window.location.href = 'manage_login.html';
 }
 if (currentUser.get("role") != "Admin") {
-    window.location.href = 'manage_Login.html';
+    window.location.href = 'manage_login.html';
 }
 
 $('.dateInput').flatpickr(
