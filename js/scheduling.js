@@ -105,10 +105,17 @@ $('.scheduleClass').click(function (e) {
   classes.add('tutee', name);
   classes.increment('tuteeAmount', 1);
   classes.save();
+  Email.send({
+    SecureToken : "d95cdaf6-dff2-43de-8f9a-146b634f335d",
+    To : email,
+    From : "jiawenli233@gmail.com",
+    Subject : "Test Subject",
+    Body : "Test Body"
+  }).then();
   $(".step4").fadeOut();
-  setTimeout(() => {
-    $(".step5").fadeIn();
-  }, 500);
+    setTimeout(() => {
+      $(".step5").fadeIn();
+    }, 500);
   const query = new AV.Query('tuteeList');
   query.equalTo("name", name);
   query.find().then((tutee) => {
