@@ -225,7 +225,7 @@ $('#form-register').submit(function (e) {
     user.signUp().then((user) => {
         alert(`Registered. ObjectID: ${user.id}`);
       }, (error) => {
-        alert("User already exists");
+        alert(error);
         return;
       });
     const tutorList = AV.Object.extend('tutorList');
