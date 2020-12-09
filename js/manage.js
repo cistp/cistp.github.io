@@ -226,10 +226,9 @@ $('#form-register').submit(function (e) {
       });
     const tutorList = AV.Object.extend('tutorList');
     const tutorlist = new tutorList();
-    const userN = AV.Object.createWithoutData('_User', user.id)
     tutorlist.set('tutorName', $('#name').val());
-    tutorlist.set('user', userN);
-    console.log(userN);
+    console.log(user);
+    tutorlist.set('user', user);
     tutorlist.save().then((tutorlist) => {
         return;
       }, (error) => {
