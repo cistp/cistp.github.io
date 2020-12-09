@@ -131,6 +131,7 @@ $('.scheduleClass').click(function (e) {
       const query = new AV.Query('tuteeList');
       query.equalTo("name", name);
       query.find().then((tutee) => {
+        console.log(tutee);
         if (tutee.length != 0) {
           return;
         } else {
