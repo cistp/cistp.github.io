@@ -214,30 +214,25 @@ $('.tutee').click(function (e) {
 
 $('#form-register').submit(function (e) { 
     e.preventDefault();
-    const seasionToken = AV.User.current().getSessionToken();
-    const username = $('#username').val();
-    const password = $('#pass').val();
-    const realname = $('#name').val();
     const user = new AV.User();
-    user.setUsername(username);
-    user.setPassword(password);
+    user.setUsername($('#username').val());
+    user.setPassword($('#pass').val());
     user.set('role', 'Tutor');
     user.signUp().then((user) => {
         alert(`Registered. ObjectID: ${user.id}`);
       }, (error) => {
-        alert(error);
+        alert("User already exists");
         return;
       });
     const tutorList = AV.Object.extend('tutorList');
     const tutorlist = new tutorList();
-    tutorlist.set('isTutor', true);
-    tutorlist.set('tutorName', realname);
+    tutorlist.set('tutorName', $('#name').val());
     tutorlist.set('user', user);
     tutorlist.save().then((tutorlist) => {
-        AV.User.become(seasionToken);
+        return;
       }, (error) => {
-        alert(error);
-      });
+        alert("Error when saving Tutor");
+      })
 });
 
 $('#selTutor').change(function (e) { 
