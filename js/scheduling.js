@@ -122,22 +122,24 @@ $('.scheduleClass').click(function (e) {
     From : "jiawenli233@gmail.com",
     Subject : "Test Subject",
     Body : "Test Body"
-  }).then();
+  }).then(
+    message => console.log(message)
+  );
   $(".step4").fadeOut();
     setTimeout(() => {
       $(".step5").fadeIn();
+      const query = new AV.Query('tuteeList');
+      query.equalTo("name", name);
+      query.find().then((tutee) => {
+        if (tutee.length != 0) {
+          return;
+        } else {
+          const tuteeL = AV.Object.extend('tuteeList');
+          const tuteel = new tuteeL();
+          tuteel.set('name', name);
+          tuteel.set('email', email);
+        }
+      });
     }, 500);
-  const query = new AV.Query('tuteeList');
-  query.equalTo("name", name);
-  query.find().then((tutee) => {
-    if (tutee) {
-      return
-    } else {
-      const tuteeL = AV.Object.extend('tuteeList');
-      const tuteel = new tuteeL();
-      tuteel.set('name', name);
-      tuteel.set('email', email);
-    }
-  });
 });
 
