@@ -10,6 +10,31 @@ if (!currentUser) {
 if (currentUser.get("role") != "Admin") {
     window.location.href = 'manage_login.html';
 }
+var nameList = [
+    'Time','Past','Future','Dev',
+    'Fly','Flying','Soar','Soaring','Power','Falling',
+    'Fall','Jump','Cliff','Mountain','Rend','Red','Blue',
+    'Green','Yellow','Gold','Demon','Demonic','Panda','Cat',
+    'Kitty','Kitten','Zero','Memory','Trooper','XX','Bandit',
+    'Fear','Light','Glow','Tread','Deep','Deeper','Deepest',
+    'Mine','Your','Worst','Enemy','Hostile','Force','Video',
+    'Game','Donkey','Mule','Colt','Cult','Cultist','Magnum',
+    'Gun','Assault','Recon','Trap','Trapper','Redeem','Code',
+    'Script','Writer','Near','Close','Open','Cube','Circle',
+    'Geo','Genome','Germ','Spaz','Shot','Echo','Beta','Alpha',
+    'Gamma','Omega','Seal','Squid','Money','Cash','Lord','King',
+    'Duke','Rest','Fire','Flame','Morrow','Break','Breaker','Numb',
+    'Ice','Cold','Rotten','Sick','Sickly','Janitor','Camel','Rooster',
+    'Sand','Desert','Dessert','Hurdle','Racer','Eraser','Erase','Big',
+    'Small','Short','Tall','Sith','Bounty','Hunter','Cracked','Broken',
+    'Sad','Happy','Joy','Joyful','Crimson','Destiny','Deceit','Lies',
+    'Lie','Honest','Destined','Bloxxer','Hawk','Eagle','Hawker','Walker',
+    'Zombie','Sarge','Capt','Captain','Punch','One','Two','Uno','Slice',
+    'Slash','Melt','Melted','Melting','Fell','Wolf','Hound',
+    'Legacy','Sharp','Dead','Mew','Chuckle','Bubba','Bubble','Sandwich','Smasher','Extreme','Multi','Universe','Ultimate','Death','Ready','Monkey','Elevator','Wrench','Grease','Head','Theme','Grand','Cool','Kid','Boy','Girl','Vortex','Paradox'
+  ]; 
+  
+  var finalName = ""
 
 $('.dateInput').flatpickr(
     {
@@ -61,18 +86,6 @@ $(document).ready(function () {
                 })
             }
             if (startTime == "17:00") {
-                const tutorID = listClasses[i].attributes.tutor.id;
-                const tutee = listClasses[i].attributes.tutee;
-                const query = new AV.Query('tutorList');
-                const tutorUser = AV.Object.createWithoutData('_User', tutorID);
-                query.equalTo('user', tutorUser);
-                query.find().then((user) => {
-                    tutorName = user[0].get('tutorName');
-                    const comb = "<tr><td>" + tutorName +"</td><td>" + startTime + '</td><td>' + tutee + '</td></tr>';
-                    $('.listTable').append(comb);
-                })
-            }
-            if (startTime == "18:00") {
                 const tutorID = listClasses[i].attributes.tutor.id;
                 const tutee = listClasses[i].attributes.tutee;
                 const query = new AV.Query('tutorList');
@@ -153,18 +166,6 @@ $('.dateInput').change(function (e) {
                     $('.listTable').append(comb);
                 })
             }
-            if (startTime == "18:00") {
-                const tutorID = listClasses[i].attributes.tutor.id;
-                const tutee = listClasses[i].attributes.tutee;
-                const query = new AV.Query('tutorList');
-                const tutorUser = AV.Object.createWithoutData('_User', tutorID);
-                query.equalTo('user', tutorUser);
-                query.find().then((user) => {
-                    tutorName = user[0].get('tutorName');
-                    const comb = "<tr><td>" + tutorName +"</td><td>" + startTime + '</td><td>' + tutee + '</td></tr>';
-                    $('.listTable').append(comb);
-                })
-            }
         }
     })
 });
@@ -215,6 +216,7 @@ $('.tutee').click(function (e) {
 $('#form-register').submit(function (e) { 
     e.preventDefault();
     const user = new AV.User();
+    const currentUser = AV.User.current().getSessionToken();
     user.setUsername($('#username').val());
     user.setPassword($('#pass').val());
     user.set('role', 'Tutor');
@@ -223,6 +225,11 @@ $('#form-register').submit(function (e) {
       }, (error) => {
         alert("User already exists");
         return;
+      });
+      AV.User.become(currentUser).then((user) => {
+        console.log('Current User Login Successfully.');
+      }, (error) => {
+        console.log('when login currentUser' + error);
       });
     setTimeout(() => {
         const tutorList = AV.Object.extend('tutorList');
@@ -300,4 +307,33 @@ $(".Listtutee").on('click', '.removeTime',function (e) {
     setTimeout(() => {
         location.reload();
     }, 50);
+});
+
+function randName(){
+	finalName = nameList[Math.floor( Math.random() * nameList.length )];
+	finalName += nameList[Math.floor( Math.random() * nameList.length )];
+	if ( Math.random() > 0.5 ) {
+	finalName += nameList[Math.floor( Math.random() * nameList.length )];
+}
+	return finalName;
+};
+
+$('#randomUsername').click(function (e) { 
+    e.preventDefault();
+    $('#username').val(randName());
+});
+
+function generatePassword() {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
+
+$('#randomPassword').click(function (e) { 
+    e.preventDefault();
+    $('#pass').val(generatePassword());
 });

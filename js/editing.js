@@ -36,8 +36,8 @@ $('.timeInput').flatpickr(
         noCalendar: true,
         dateFormat: "H:i",
         minTime: "15:00",
-        maxTime: "18:00",
-        static: true
+        maxTime: "17:00",
+        static: true,
     }
 );
 $('.createSchedule').click(function (e) { 
