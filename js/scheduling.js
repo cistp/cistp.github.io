@@ -98,6 +98,9 @@ $('.scheduleClass').click(function (e) {
   if ($("#name").val() == "" || $("#email").val() == "") {
     alert("Please enter tutee's name and email");
     return;
+  } else if (!("@" in $("#email").val())){
+    alert("Not valid email");
+    return;
   };
   name = $("#name").val();
   email = $("#email").val();
