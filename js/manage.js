@@ -226,7 +226,6 @@ $('#form-register').submit(function (e) {
       });
     const tutorList = AV.Object.extend('tutorList');
     const tutorlist = new tutorList();
-    tutorlist.set('tutorName', $('#name').val());
     console.log(user);
     tutorlist.set('user', user);
     tutorlist.save().then((tutorlist) => {
