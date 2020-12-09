@@ -93,13 +93,21 @@ $('#selTime').change(function (e) {
   });
 });
 
+function ValidateEmail(mail) 
+{
+ if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test($("#email").val())){
+    return true;
+  }
+    alert("You have entered an invalid email address!");
+    return false;
+}
+
 $('.scheduleClass').click(function (e) { 
   e.preventDefault();
   if ($("#name").val() == "" || $("#email").val() == "") {
     alert("Please enter tutee's name and email");
     return;
-  } else if (!("@" in $("#email").val())){
-    alert("Not valid email");
+  } else if (!ValidateEmail()){
     return;
   };
   name = $("#name").val();
