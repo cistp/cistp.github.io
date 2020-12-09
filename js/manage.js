@@ -224,17 +224,18 @@ $('#form-register').submit(function (e) {
         alert("User already exists");
         return;
       });
-    const tutorList = AV.Object.extend('tutorList');
-    const tutorlist = new tutorList();
-    console.log(user);
-    tutorlist.set('user', user);
-    tutorlist.save().then((tutorlist) => {
-        return;
-      }, (error) => {
-        alert("Error when saving Tutor");
-      });
+    setTimeout(() => {
+        const tutorList = AV.Object.extend('tutorList');
+        const tutorlist = new tutorList();
+        tutorlist.set('tutorName', $('#name').val());
+        tutorlist.set('user', user);
+        tutorlist.save().then((tutorlist) => {
+            return;
+        }, (error) => {
+            alert("Error when saving Tutor");
+        });
+    }, 2000);
 });
-
 $('#selTutor').change(function (e) { 
     e.preventDefault();
     tutorID = $(this).val();
