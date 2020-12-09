@@ -214,10 +214,10 @@ $('.tutee').click(function (e) {
 
 $('#form-register').submit(function (e) { 
     e.preventDefault();
+    const seasionToken = AV.User.current().getSessionToken();
     const username = $('#username').val();
     const password = $('#pass').val();
     const realname = $('#name').val();
-    const seasionToken = AV.User.current().getSessionToken();
     const user = new AV.User();
     user.setUsername(username);
     user.setPassword(password);
@@ -234,14 +234,10 @@ $('#form-register').submit(function (e) {
     tutorlist.set('tutorName', realname);
     tutorlist.set('user', user);
     tutorlist.save().then((tutorlist) => {
-        AV.User.become(seasionToken).then((user) => {
-            return;
-          }, (error) => {
-            alert("Error when changing account.")
-          });
+        AV.User.become(seasionToken);
       }, (error) => {
         alert(error);
-      })
+      });
 });
 
 $('#selTutor').change(function (e) { 
