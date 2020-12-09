@@ -226,14 +226,15 @@ $('#form-register').submit(function (e) {
       });
     const tutorList = AV.Object.extend('tutorList');
     const tutorlist = new tutorList();
+    const userN = AV.Object.createWithoutData('_User', user.id)
     tutorlist.set('tutorName', $('#name').val());
-    tutorlist.set('user', user);
-    console.log(user);
+    tutorlist.set('user', userN);
+    console.log(userN);
     tutorlist.save().then((tutorlist) => {
         return;
       }, (error) => {
         alert("Error when saving Tutor");
-      })
+      });
 });
 
 $('#selTutor').change(function (e) { 
