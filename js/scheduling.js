@@ -48,8 +48,6 @@ $('#selTutor').change(function (e) {
   let array = [];
   query.equalTo('tutor', user);
   query.find().then((dates) => {
-    rn = dates[0].get('roomNumber');
-    console.log(rn);
     for (let index = 0; index < dates.length; index++) {
       const date = dates[index];
       array.push(date.get('date'));
@@ -60,6 +58,12 @@ $('#selTutor').change(function (e) {
       $("#selDate").append("<option>" + element + "</option>");
     }
   });
+  const query1 = new AV.Query('tutorList');
+  query1.equalTo('user', user);
+  query1.find().then((tutor) => {
+    rn = tutor[0].get('roomNumber');
+    console.log(rn);
+  })
 });
 
 $('#selDate').change(function (e) { 
