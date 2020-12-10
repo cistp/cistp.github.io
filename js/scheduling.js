@@ -115,6 +115,19 @@ $('.scheduleClass').click(function (e) {
   } else if (!ValidateEmail()){
     return;
   };
+  let tempCheck;
+  const query = new AV.Query('Classes');
+  query.equalTo('tutor', user);
+  query.equalTo('date', date);
+  query.equalTo('startTime', time);
+  query.find().then((class_) => {
+    tempCheck = class_[0].get('tuteeAmount');
+  });
+  if (tempCheck > 2) {
+    alert("Sorry, this class is full");
+    location.reload();
+    return;
+  }
   name = $("#name").val();
   email = $("#email").val();
   const classes = AV.Object.createWithoutData('Classes', class__);
@@ -354,15 +367,17 @@ $('.scheduleClass').click(function (e) {
       $(".step5").fadeIn();
     }, 500);
   const querytl = new AV.Query('tuteeList');
+  let listLength;
   querytl.equalTo("name", name);
   querytl.equalTo('email', email);
   querytl.find().then((tutees) => {
-    console.log(tutees);
-    if (typeof tutees == 'undefined') {
-      const tuteeL = AV.Object.extend('tuteeList');
-      const tuteel = new tuteeL();
-      tuteel.set('name', name);
-      tuteel.set('email', email);
-    }
+    listLength = tutees.length;
   });
+  console.log(listLength);
+  if (listLength == 0) {
+    const tuteeL = AV.Object.extend('tuteeList');
+    const tuteel = new tuteeL();
+    tuteel.set('name', name);
+    tuteel.set('email', email);
+  }
 })
