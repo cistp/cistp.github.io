@@ -48,6 +48,7 @@ $('#selTutor').change(function (e) {
   let array = [];
   query.equalTo('tutor', user);
   query.find().then((dates) => {
+    rn = dates[0].get('roomNumber');
     for (let index = 0; index < dates.length; index++) {
       const date = dates[index];
       array.push(date.get('date'));
@@ -120,11 +121,6 @@ $('.scheduleClass').click(function (e) {
   classes.add('tutee', name);
   classes.increment('tuteeAmount', 1);
   classes.save();
-  const query = new AV.Query('tutorList');
-  query.equalTo('user', user);
-  query.find().then((roomNo) => {
-    rn = roomNo[0].get('roomNumber');
-  });
   Email.send({
     SecureToken : "f9e49ab6-a7e5-434e-894b-1b9e23cffb0b",
     To : email,
@@ -361,6 +357,7 @@ $('.scheduleClass').click(function (e) {
   querytl.equalTo("name", name);
   querytl.equalTo('email', email);
   querytl.find().then((tutees) => {
+    console.log(tutees);
     if (typeof tutees == 'undefined') {
       const tuteeL = AV.Object.extend('tuteeList');
       const tuteel = new tuteeL();
