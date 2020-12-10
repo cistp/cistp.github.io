@@ -121,7 +121,7 @@ $('.scheduleClass').click(function (e) {
   classes.increment('tuteeAmount', 1);
   classes.save();
   const query = new AV.Query('tutorList');
-  query.equalTo('user', user.id);
+  query.equalTo('user', user);
   query.find().then((roomNo) => {
     rn = roomNo[0].get('roomNumber');
   });
@@ -361,7 +361,7 @@ $('.scheduleClass').click(function (e) {
   querytl.equalTo("name", name);
   querytl.equalTo('email', email);
   querytl.find().then((tutees) => {
-    if (!tutees) {
+    if (typeof tutees == 'undefined') {
       const tuteeL = AV.Object.extend('tuteeList');
       const tuteel = new tuteeL();
       tuteel.set('name', name);
