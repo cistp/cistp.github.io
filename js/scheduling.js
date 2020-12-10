@@ -117,9 +117,9 @@ $('.scheduleClass').click(function (e) {
   classes.increment('tuteeAmount', 1);
   classes.save();
   Email.send({
-    SecureToken : "d95cdaf6-dff2-43de-8f9a-146b634f335d",
+    SecureToken : "f9e49ab6-a7e5-434e-894b-1b9e23cffb0b",
     To : email,
-    From : "jiawenli233@gmail.com",
+    From : "cistp20@gmail.com",
     Subject : "Test Subject",
     Body : "Test Body"
   }).then(
