@@ -378,7 +378,7 @@ $('.scheduleClass').click(function (e) {
       const tuteel = new tuteeL();
       tuteel.set('name', name);
       tuteel.set('email', email);
-      todo.save().then((todo) => {
+      tuteel.save().then((todo) => {
         return;
       }, (error) => {
         console.log(error);
