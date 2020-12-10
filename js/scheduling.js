@@ -357,10 +357,10 @@ $('.scheduleClass').click(function (e) {
     setTimeout(() => {
       $(".step5").fadeIn();
     }, 500);
-  const query = new AV.Query('tuteeList');
-  query.equalTo("name", name);
-  query.equalTo('email', email);
-  query.find().then((tutees) => {
+  const querytl = new AV.Query('tuteeList');
+  querytl.equalTo("name", name);
+  querytl.equalTo('email', email);
+  querytl.find().then((tutees) => {
     if (tutees.length == 0) {
       const tuteeL = AV.Object.extend('tuteeList');
       const tuteel = new tuteeL();
