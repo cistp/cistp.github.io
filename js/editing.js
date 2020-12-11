@@ -55,19 +55,21 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('date', $('.dateInput').val());
                 query.equalTo('startTime', $('.timeInput').val());
                 query.find().then((classe) => {
-                    if (classe.length != 0) {
+                    if (classe.length == 0) {
+                        const element = date[index];
+                        const Classes = AV.Object.extend('Classes');
+                        const classes = new Classes();
+                        classes.set('date', element);
+                        classes.set('startTime', $('.timeInput').val());
+                        classes.set('tutee', []);
+                        classes.set('tuteeAmount', 0);
+                        classes.set('tutor', tutor);
+                        objects.push(classes);
+                    } else {
+                        location.reload();
                         return;
                     }
                 });
-                const element = date[index];
-                const Classes = AV.Object.extend('Classes');
-                const classes = new Classes();
-                classes.set('date', element);
-                classes.set('startTime', $('.timeInput').val());
-                classes.set('tutee', []);
-                classes.set('tuteeAmount', 0);
-                classes.set('tutor', tutor);
-                objects.push(classes);
             }
             AV.Object.saveAll(objects).then((classes) => {
                 location.reload();
@@ -78,20 +80,22 @@ $('.createSchedule').click(function (e) {
             query.equalTo('date', $('.dateInput').val());
             query.equalTo('startTime', $('.timeInput').val());
             query.find().then((classe) => {
-                if (classe.length != 0) {
-                    alert("Time repeat!")
+                if (classe.length == 0) {
+                    const Classes = AV.Object.extend('Classes');
+                    const classes = new Classes();
+                    classes.set('date', $('.dateInput').val());
+                    classes.set('startTime', $('.timeInput').val());
+                    classes.set('tutee', []);
+                    classes.set('tuteeAmount', 0);
+                    classes.set('tutor', tutor);
+                    classes.save().then((classes) => {
+                        location.reload();
+                    });
+                } else {
+                    alert("Time repeat!");
+                    location.reload();
                     return;
                 }
-            });
-            const Classes = AV.Object.extend('Classes');
-            const classes = new Classes();
-            classes.set('date', $('.dateInput').val());
-            classes.set('startTime', $('.timeInput').val());
-            classes.set('tutee', []);
-            classes.set('tuteeAmount', 0);
-            classes.set('tutor', tutor);
-            classes.save().then((classes) => {
-                location.reload();
             });
         }
     }
