@@ -55,7 +55,7 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('date', $('.dateInput').val());
                 query.equalTo('startTime', $('.timeInput').val());
                 query.find().then((classe) => {
-                    if (classe.length !== 0) {
+                    if (classe.length != 0) {
                         return;
                     }
                 });
@@ -78,7 +78,7 @@ $('.createSchedule').click(function (e) {
             query.equalTo('date', $('.dateInput').val());
             query.equalTo('startTime', $('.timeInput').val());
             query.find().then((classe) => {
-                if (classe.length !== 0) {
+                if (classe.length != 0) {
                     alert("Time repeat!")
                     return;
                 }

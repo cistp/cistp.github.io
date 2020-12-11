@@ -242,7 +242,7 @@ $('#form-register').submit(function (e) {
         }, (error) => {
             alert(error);
         });
-    }, 2000);
+    }, 1000);
 });
 $('#selTutor').change(function (e) { 
     e.preventDefault();
