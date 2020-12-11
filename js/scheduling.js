@@ -358,7 +358,7 @@ $('.scheduleClass').click(function (e) {
   }).then(
     message => console.log(message)
   );
-  const replaceDate = date.replace('-', '');
+  const replaceDate = date.replaceAll('-', '');
   const getTime = time.replace(':', '');
   const timeMapping = { "1500": 230000, "1600": 000000, "1700": 010000, "1800": 020000, "1900": 030000 };
   $('#addEvent').attr('href', `https://www.google.com/calendar/render?action=TEMPLATE&text=Tutoring%20Program&dates=${replaceDate}T${timeMapping[getTime]}Z/${replaceDate}T${timeMapping[getTime]+10000}Z&details=CIS%20Tutoring%20Program&location=Discord%20Room%20${rn}&sprop=&sprop=name:`);
