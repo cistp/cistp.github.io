@@ -1,11 +1,4 @@
-var tutorID;
-var date;
-var user;
-var tutorsName;
-var time;
-var class__;
-var tAmount;
-var rn;
+let tutorID, date, user, tutorsName, time, class__, tAmount, rn;
 
 const { Query, User } = AV;
 AV.init({
@@ -365,6 +358,10 @@ $('.scheduleClass').click(function (e) {
   }).then(
     message => console.log(message)
   );
+  const replaceDate = date.replace('-', '');
+  const getTime = time.replace(':', '');
+  const timeMapping = { "1500": 230000, "1600": 000000, "1700": 010000, "1800": 020000, "1900": 030000 };
+  $('#addEvent').attr('href', `https://www.google.com/calendar/render?action=TEMPLATE&text=Tutoring%20Program&dates=${replaceDate}T${timeMapping[getTime]}Z/${replaceDate}T${timeMapping[getTime]+10000}Z&details=CIS%20Tutoring%20Program&location=Discord%20Room%20${rn}&sprop=&sprop=name:`);
   $(".step4").fadeOut();
     setTimeout(() => {
       $(".step5").fadeIn();
