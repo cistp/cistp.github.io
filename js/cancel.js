@@ -1,3 +1,8 @@
+const { Query, User } = AV;
+AV.init({
+    appId: "PIK2R2tijm6BuxTj6sY91OAP-MdYXbMMI",
+    appKey: "1dcvKnz8iUtkjfEExfCjwKMF",
+  });
 const queryString = window.location.search;
 if (queryString == "") {
     location.href = "index.html";
