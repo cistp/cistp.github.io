@@ -42,6 +42,7 @@ $('.timeInput').flatpickr(
 );
 $('.createSchedule').click(function (e) { 
     e.preventDefault();
+    const tutor = AV.User.current();
     if (!$('.dateInput').val() || !$('.timeInput').val()) {
         alert("Please enter a date and time!");
     } else {
@@ -56,7 +57,6 @@ $('.createSchedule').click(function (e) {
                     let objects = [];
                     for (let index = 0; index < date.length; index++) {
                         const element = date[index];
-                        const tutor = AV.User.current();
                         const Classes = AV.Object.extend('Classes');
                         const classes = new Classes();
                         classes.set('date', element);
@@ -72,7 +72,6 @@ $('.createSchedule').click(function (e) {
                 } else {
                     const Classes = AV.Object.extend('Classes');
                     const classes = new Classes();
-                    const tutor = AV.User.current();
                     classes.set('date', $('.dateInput').val());
                     classes.set('startTime', $('.timeInput').val());
                     classes.set('tutee', []);
@@ -82,7 +81,9 @@ $('.createSchedule').click(function (e) {
                         location.reload();
                     });
                 }
-            } 
+            } else {
+                alert("Time repeat!");
+            }
         });
     }
 });
