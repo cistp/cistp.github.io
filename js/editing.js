@@ -66,6 +66,7 @@ $('.createSchedule').click(function (e) {
                         classes.set('tutor', tutor);
                         objects.push(classes);
                     } else {
+                        alert("Time repeat!");
                         location.reload();
                         return;
                     }
