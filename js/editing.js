@@ -68,8 +68,6 @@ $('.createSchedule').click(function (e) {
                         classes.set('tuteeAmount', 0);
                         classes.set('tutor', tutor);
                         objects.push(classes);
-                    } else {
-                        continue;
                     }
                 });
             }
