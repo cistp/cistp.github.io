@@ -50,25 +50,23 @@ $('.createSchedule').click(function (e) {
         alert("Please enter a date and time!");
     } else {
         if ($('.dateInput').val().indexOf(",") != -1) {
-            console.log("test");
             const date = $('.dateInput').val().split(", ");
             let objects = [];
             for (let index = 0; index < date.length; index++) {
                 const element = date[index];
+                const Classes = AV.Object.extend('Classes');
+                const classes = new Classes();
+                classes.set('date', element);
+                classes.set('startTime', $('.timeInput').val());
+                classes.set('tutee', []);
+                classes.set('tuteeAmount', 0);
+                classes.set('tutor', tutor);
                 const query = new AV.Query('Classes');
                 query.equalTo('tutor', tutor);
                 query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
-                query.find().then((classe) => {
-                    console.log(classe);
-                    if (!classe) {
-                        const Classes = AV.Object.extend('Classes');
-                        const classes = new Classes();
-                        classes.set('date', element);
-                        classes.set('startTime', $('.timeInput').val());
-                        classes.set('tutee', []);
-                        classes.set('tuteeAmount', 0);
-                        classes.set('tutor', tutor);
+                query.find().then((clas) => {
+                    if (clas.length == 0) {
                         objects.push(classes);
                     } else {
                         alert("Time Conflict!");
