@@ -58,14 +58,13 @@ $('#selTutor').change(function (e) {
   })
 });
 
-$("#selDate").flatpickr({
-  dateFormat: "Y-m-d",
-  inline: true,
-  enable: dateList
-});
-
 $('#selDate').change(function (e) { 
   e.preventDefault();
+  $("#selDate").flatpickr({
+    dateFormat: "Y-m-d",
+    inline: true,
+    enable: dateList
+  });
   $(".step2").fadeOut();
   setTimeout(() => {
     $(".step3").fadeIn();
