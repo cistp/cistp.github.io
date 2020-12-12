@@ -1,4 +1,5 @@
-let tutorID, date, user, tutorsName, time, class__, tAmount, rn, dateList;
+let tutorID, date, user, tutorsName, time, class__, tAmount, rn;
+let dateList = [];
 
 const { Query, User } = AV;
 AV.init({
