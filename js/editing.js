@@ -53,13 +53,13 @@ $('.createSchedule').click(function (e) {
             const date = $('.dateInput').val().split(", ");
             let objects = [];
             for (let index = 0; index < date.length; index++) {
+                const element = date[index];
                 const query = new AV.Query('Classes');
                 query.equalTo('tutor', tutor);
-                query.equalTo('date', $('.dateInput').val());
+                query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
                 query.find().then((classe) => {
                     if (classe.length == 0) {
-                        const element = date[index];
                         const Classes = AV.Object.extend('Classes');
                         const classes = new Classes();
                         classes.set('date', element);
