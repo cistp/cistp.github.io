@@ -51,6 +51,7 @@ $('.createSchedule').click(function (e) {
     } else {
         if ($('.dateInput').val().indexOf(",") != -1) {
             const date = $('.dateInput').val().split(", ");
+            let objects = [];
             for (let index = 0; index < date.length; index++) {
                 const element = date[index];
                 const Classes = AV.Object.extend('Classes');
@@ -64,16 +65,20 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('tutor', tutor);
                 query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
-                query.find().then((clas) => {
-                    if (clas.length == 0) {
-                        classes.save();
-                    } else {
-                        alert("Time Conflict!");
-                        return;
-                    }
-                });
+                setTimeout(() => {
+                    query.find().then((clas) => {
+                        if (clas.length == 0) {
+                            objects.push(classes);
+                        } else {
+                            alert("Time Conflict!");
+                            return;
+                        }
+                    });
+                }, 100);
             }
-            location.reload();
+            AV.Object.saveAll(objects).then((classes) => {
+                location.reload();
+            });
         } else {
             const query = new AV.Query('Classes');
             query.equalTo('tutor', tutor);
