@@ -56,7 +56,7 @@ $('.createSchedule').click(function (e) {
     } else {
         if ($('.dateInput').val().indexOf(",") != -1) {
             const date = $('.dateInput').val().split(", ");
-            let objects = [];
+            let conf = false;
             for (let index = 0; index < date.length; index++) {
                 const element = date[index];
                 const Classes = AV.Object.extend('Classes');
@@ -73,19 +73,20 @@ $('.createSchedule').click(function (e) {
                 query.find().then((clas) => {
                     setTimeout(() => {
                         if (clas.length == 0) {
-                            classes.save().then((cls) => {
-
-                              }, (error) => {
+                            classes.save().then((cls) => {}, (error) => {
                                 alert("An error occurred when saving, contact officers for help.")
                                 console.log(error);
                               });
                         } else {
-                            alert("Time Conflict!");
-                            return;
+                            conf = true;
                         }
-                    }, 100);
+                    }, 50);
                 });
             }
+            if (conf) {
+                alert("Time Conflict!");
+            }
+            location.reload();
         } else {
             const query = new AV.Query('Classes');
             query.equalTo('tutor', tutor);
