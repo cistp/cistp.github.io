@@ -29,6 +29,11 @@ $('.logout').click(function (e) {
 
 $('.dateInput').flatpickr(
     {
+        "disable": [
+            function(date) {
+                return (date.getDay() === 0 || date.getDay() === 7);
+            }
+        ],
         mode: "multiple",
         dateFormat: "Y-m-d",
     }
@@ -69,7 +74,7 @@ $('.createSchedule').click(function (e) {
                     setTimeout(() => {
                         if (clas.length == 0) {
                             classes.save().then((cls) => {
-                                
+
                               }, (error) => {
                                 alert("An error occurred when saving, contact officers for help.")
                                 console.log(error);
