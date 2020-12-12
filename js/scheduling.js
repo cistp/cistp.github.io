@@ -49,7 +49,7 @@ $('#selTutor').change(function (e) {
     uArray = unique(array);
     for (let index = 0; index < uArray.length; index++) {
       const element = uArray[index];
-      dateList.push(element);
+      dateList[dateList.length] = element;
     }
   });
   console.log(dateList);
