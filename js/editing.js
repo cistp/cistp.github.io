@@ -71,24 +71,23 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
                 query.find().then((clas) => {
-                    setTimeout(() => {
-                        if (clas.length == 0) {
-                            classes.save().then((cls) => {
-                                
-                            }, (error) => {
-                                alert("An error occurred when saving, contact officers for help.")
-                                console.log(error);
-                              });
-                        } else {
-                            conf = true;
-                        }
-                    }, 500);
+                    if (clas.length == 0) {
+                        classes.save().then((cls) => {
+                            
+                        }, (error) => {
+                            alert("An error occurred when saving, contact officers for help.")
+                            console.log(error);
+                            });
+                    } else {
+                        conf = true;
+                    }
                 });
             }
             if (conf) {
                 alert("Time Conflict!");
+            } else {
+                location.reload();
             }
-            location.reload();
         } else {
             const query = new AV.Query('Classes');
             query.equalTo('tutor', tutor);
