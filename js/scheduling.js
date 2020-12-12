@@ -52,6 +52,11 @@ $('#selTutor').change(function (e) {
       dateList.push(element);
     }
   });
+  $("#selDate").flatpickr({
+    dateFormat: "Y-m-d",
+    inline: true,
+    enable: dateList
+  });
   const query1 = new AV.Query('tutorList');
   query1.equalTo('user', user);
   query1.find().then((tutor) => {
@@ -61,11 +66,6 @@ $('#selTutor').change(function (e) {
 
 $('#selDate').change(function (e) { 
   e.preventDefault();
-  $("#selDate").flatpickr({
-    dateFormat: "Y-m-d",
-    inline: true,
-    enable: dateList
-  });
   $(".step2").fadeOut();
   setTimeout(() => {
     $(".step3").fadeIn();
