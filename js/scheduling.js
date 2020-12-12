@@ -51,7 +51,10 @@ $('#selTutor').change(function (e) {
       const element = uArray[index];
       dateList.push(element);
     }
-    const dateListNew = dateList;
+    let dateListNew = dateList;
+    if (!dateList) {
+      dateListNew = ["2999-1-1"];
+    }
     $("#selDate").flatpickr({
       dateFormat: "Y-m-d",
       enable: dateListNew,

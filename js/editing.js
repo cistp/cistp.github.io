@@ -115,5 +115,5 @@ $(".listTable").on('click', '.removeTime',function (e) {
     classes.destroy();
     setTimeout(() => {
         location.reload();
-    }, 50);
+    }, 100);
 });
