@@ -49,14 +49,15 @@ $('#selTutor').change(function (e) {
     uArray = unique(array);
     for (let index = 0; index < uArray.length; index++) {
       const element = uArray[index];
-      dateList[dateList.length] = element;
+      dateList.push(element);
     }
-  });
-  console.log(dateList);
-  $("#selDate").flatpickr({
-    dateFormat: "Y-m-d",
-    enable: dateList,
-    inline: true
+    const dateListNew = dateList.concat(dateList);
+    console.log(dateListNew);
+    $("#selDate").flatpickr({
+      dateFormat: "Y-m-d",
+      enable: dateListNew,
+      inline: true
+    });
   });
   const query1 = new AV.Query('tutorList');
   query1.equalTo('user', user);
