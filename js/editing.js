@@ -59,7 +59,8 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
                 query.find().then((classe) => {
-                    if (classe.length == 0) {
+                    console.log(classe);
+                    if (!classe) {
                         const Classes = AV.Object.extend('Classes');
                         const classes = new Classes();
                         classes.set('date', element);
@@ -93,7 +94,6 @@ $('.createSchedule').click(function (e) {
                     });
                 } else {
                     alert("Time repeat!");
-                    location.reload();
                     return;
                 }
             });
