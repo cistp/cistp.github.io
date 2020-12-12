@@ -73,7 +73,9 @@ $('.createSchedule').click(function (e) {
                 query.find().then((clas) => {
                     setTimeout(() => {
                         if (clas.length == 0) {
-                            classes.save().then((cls) => {}, (error) => {
+                            classes.save().then((cls) => {
+                                
+                            }, (error) => {
                                 alert("An error occurred when saving, contact officers for help.")
                                 console.log(error);
                               });
