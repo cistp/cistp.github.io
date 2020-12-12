@@ -69,20 +69,17 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('tutor', tutor);
                 query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
-                setTimeout(() => {
-                    query.find().then((clas) => {
-                        if (clas.length == 0) {
-                            classes.save().then((cls) => {
-                                
-                            }, (error) => {
-                                alert("An error occurred when saving, contact officers for help.")
-                                console.log(error);
-                                });
-                        }
-                    });
-                }, 100);
+                query.find().then((clas) => {
+                    if (clas.length == 0) {
+                        classes.save().then((cls) => {
+                            
+                        }, (error) => {
+                            alert("An error occurred when saving, contact officers for help.")
+                            console.log(error);
+                            });
+                    }
+                });
             }
-            location.reload();
         } else {
             const query = new AV.Query('Classes');
             query.equalTo('tutor', tutor);
