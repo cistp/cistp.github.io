@@ -50,6 +50,7 @@ $('.createSchedule').click(function (e) {
         alert("Please enter a date and time!");
     } else {
         if ($('.dateInput').val().indexOf(",") != -1) {
+            console.log("test");
             const date = $('.dateInput').val().split(", ");
             let objects = [];
             for (let index = 0; index < date.length; index++) {
