@@ -66,8 +66,8 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
                 query.find().then((clas) => {
-                    console.log(clas);
                     if (clas.length == 0) {
+                        console.log(classes);
                         objects.push(classes);
                     } else {
                         alert("Time Conflict!");
