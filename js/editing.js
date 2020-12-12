@@ -81,6 +81,7 @@ $('.createSchedule').click(function (e) {
                               });
                         } else {
                             conf = true;
+                            return;
                         }
                     }, 100);
                 });
