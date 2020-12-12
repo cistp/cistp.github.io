@@ -80,7 +80,7 @@ $('.createSchedule').click(function (e) {
                         } else {
                             conf = true;
                         }
-                    }, 50);
+                    }, 100);
                 });
             }
             if (conf) {
