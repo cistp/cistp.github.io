@@ -93,7 +93,7 @@ $('.createSchedule').click(function (e) {
                         location.reload();
                     });
                 } else {
-                    alert("Time repeat!");
+                    alert("Time Conflict!");
                     return;
                 }
             });
