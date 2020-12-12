@@ -51,8 +51,7 @@ $('#selTutor').change(function (e) {
       const element = uArray[index];
       dateList.push(element);
     }
-    const dateListNew = dateList.concat(dateList);
-    console.log(dateListNew);
+    const dateListNew = dateList;
     $("#selDate").flatpickr({
       dateFormat: "Y-m-d",
       enable: dateListNew,
