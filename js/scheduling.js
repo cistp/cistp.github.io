@@ -52,10 +52,11 @@ $('#selTutor').change(function (e) {
       dateList.push(element);
     }
   });
+  console.log(dateList);
   $("#selDate").flatpickr({
     dateFormat: "Y-m-d",
-    inline: true,
-    enable: dateList
+    enable: dateList,
+    inline: true
   });
   const query1 = new AV.Query('tutorList');
   query1.equalTo('user', user);
