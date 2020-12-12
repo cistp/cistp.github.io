@@ -1,4 +1,4 @@
-let tutorID, date, user, tutorsName, time, class__, tAmount, rn;
+let tutorID, date, user, tutorsName, time, class__, tAmount, rn, dateList;
 
 const { Query, User } = AV;
 AV.init({
@@ -48,7 +48,7 @@ $('#selTutor').change(function (e) {
     uArray = unique(array);
     for (let index = 0; index < uArray.length; index++) {
       const element = uArray[index];
-      $("#selDate").append("<option>" + element + "</option>");
+      dateList.push(element);
     }
   });
   const query1 = new AV.Query('tutorList');
@@ -58,6 +58,12 @@ $('#selTutor').change(function (e) {
   })
 });
 
+$("#selDate").flatpickr({
+  dateFormat: "Y-m-d",
+  inline: true,
+  enable: dateList
+});
+
 $('#selDate').change(function (e) { 
   e.preventDefault();
   $(".step2").fadeOut();
@@ -65,7 +71,7 @@ $('#selDate').change(function (e) {
     $(".step3").fadeIn();
   }, 500);
   const query = new AV.Query('Classes');
-  date = $('#selDate option:selected').text();
+  date = $('#selDate').val();
   query.equalTo('tutor', user);
   query.equalTo('date', date);
   query.lessThan('tuteeAmount', 2);
