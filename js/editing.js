@@ -67,14 +67,15 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('startTime', $('.timeInput').val());
                 query.find().then((clas) => {
                     if (clas.length == 0) {
-                        console.log(classes);
                         objects.push(classes);
                     } else {
                         alert("Time Conflict!");
                         return;
                     }
                 });
+                console.log(objects);
             }
+            console.log(objects);
             // AV.Object.saveAll(objects).then((classes) => {
             //     location.reload();
             // });
