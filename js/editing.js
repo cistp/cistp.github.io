@@ -65,20 +65,17 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('tutor', tutor);
                 query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
-                setTimeout(() => {
-                    query.find().then((clas) => {
+                query.find().then((clas) => {
+                    setTimeout(() => {
                         if (clas.length == 0) {
                             objects.push(classes);
                         } else {
                             alert("Time Conflict!");
                             return;
                         }
-                    });
-                }, 100);
+                    }, 100);
+                });
             }
-            AV.Object.saveAll(objects).then((classes) => {
-                location.reload();
-            });
         } else {
             const query = new AV.Query('Classes');
             query.equalTo('tutor', tutor);
