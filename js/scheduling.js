@@ -52,7 +52,7 @@ $('#selTutor').change(function (e) {
       dateList.push(element);
     }
     let dateListNew = dateList;
-    if (!dateList) {
+    if (dateList.length == 0) {
       dateListNew = ["2999-1-1"];
     }
     $("#selDate").flatpickr({
