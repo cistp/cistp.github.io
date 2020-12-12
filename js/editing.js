@@ -68,7 +68,12 @@ $('.createSchedule').click(function (e) {
                 query.find().then((clas) => {
                     setTimeout(() => {
                         if (clas.length == 0) {
-                            objects.push(classes);
+                            classes.save().then((cls) => {
+                                
+                              }, (error) => {
+                                alert("An error occurred when saving, contact officers for help.")
+                                console.log(error);
+                              });
                         } else {
                             alert("Time Conflict!");
                             return;
