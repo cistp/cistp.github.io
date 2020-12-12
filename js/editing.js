@@ -80,6 +80,9 @@ $('.createSchedule').click(function (e) {
                     }
                 });
             }
+            setTimeout(() => {
+                location.reload();
+            }, 100);
         } else {
             const query = new AV.Query('Classes');
             query.equalTo('tutor', tutor);
