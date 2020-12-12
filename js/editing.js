@@ -71,7 +71,9 @@ $('.createSchedule').click(function (e) {
                 query.equalTo('date', element);
                 query.equalTo('startTime', $('.timeInput').val());
                 query.find().then((clas) => {
+                    console.log("TEST");
                     if (clas.length == 0) {
+                        console.log("TEST");
                         classes.save().then((cls) => {
                             
                         }, (error) => {
