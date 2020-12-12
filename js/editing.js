@@ -82,6 +82,7 @@ $('.createSchedule').click(function (e) {
                     });
                 }, 100);
             }
+            location.reload();
         } else {
             const query = new AV.Query('Classes');
             query.equalTo('tutor', tutor);
