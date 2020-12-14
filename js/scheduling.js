@@ -396,6 +396,7 @@ $('.scheduleClass').click(function (e) {
 
 $('.prev2').click(function (e) { 
   e.preventDefault();
+  $('#selTutor').val('0');
   $(".step2").fadeOut();
   setTimeout(() => {
     $(".step1").fadeIn();
@@ -412,6 +413,7 @@ $('.prev3').click(function (e) {
 
 $('.prev4').click(function (e) { 
   e.preventDefault();
+  $('#selTime').val('0');
   $(".step4").fadeOut();
   setTimeout(() => {
     $(".step3").fadeIn();
