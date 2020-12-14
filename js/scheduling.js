@@ -393,3 +393,27 @@ $('.scheduleClass').click(function (e) {
     }
   });
 })
+
+$('.prev2').click(function (e) { 
+  e.preventDefault();
+  $(".step2").fadeOut();
+  setTimeout(() => {
+    $(".step1").fadeIn();
+  }, 500);
+});
+
+$('.prev3').click(function (e) { 
+  e.preventDefault();
+  $(".step3").fadeOut();
+  setTimeout(() => {
+    $(".step2").fadeIn();
+  }, 500);
+});
+
+$('.prev4').click(function (e) { 
+  e.preventDefault();
+  $(".step4").fadeOut();
+  setTimeout(() => {
+    $(".step3").fadeIn();
+  }, 500);
+});
