@@ -45,7 +45,7 @@ $('.timeInput').flatpickr(
         dateFormat: "H:i",
         minTime: "15:00",
         maxTime: "17:00",
-        static: true,
+        disableMobile: "true"
     }
 );
 $('.createSchedule').click(function (e) { 
@@ -54,6 +54,10 @@ $('.createSchedule').click(function (e) {
     if (!$('.dateInput').val() || !$('.timeInput').val()) {
         alert("Please enter a date and time!");
     } else {
+        if ($('.timeInput').val().split(":")[1] != "00") {
+            alert("Set minute to 00");
+            return;
+        }
         if ($('.dateInput').val().indexOf(",") != -1) {
             const date = $('.dateInput').val().split(", ");
             for (let index = 0; index < date.length; index++) {
