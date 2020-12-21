@@ -118,6 +118,48 @@ $(document).ready(function () {
         $("#selTutor").append("<option value='" + id + "'>" + name + "</option>");
     }
     });
+    const query4 = new AV.Query('option');
+    query4.equalTo('optionName', 'customDateList');
+    query4.find().then((dateList) => {
+        if (dateList[0].get('value').length != 0) {
+            $('#cudToggle').bootstrapToggle('on');
+            $("#disableDate").flatpickr({
+                dateFormat: "Y-m-d",
+                mode: "multiple",
+                defaultDate: dateList[0].get('value'),
+                inline: true,
+                onChange: function(selectedDates, dateStr, instance) {
+                    const dateList = dateStr.split(', ');
+                    const list = AV.Object.createWithoutData('option', '5fe033ed6289d841a0ef12d7');
+                    list.set('value', dateList);
+                    list.save();
+                },
+            });
+        }
+    })
+});
+
+$('#cudToggle').change(function (e) { 
+    e.preventDefault();
+    if ($(this).prop('checked') == true) {
+        $("#disableDate").flatpickr({
+            dateFormat: "Y-m-d",
+            mode: "multiple",
+            inline: true,
+            defaultDate: [],
+            onChange: function(selectedDates, dateStr, instance) {
+                const dateList = dateStr.split(', ');
+                const list = AV.Object.createWithoutData('option', '5fe033ed6289d841a0ef12d7');
+                list.set('value', dateList);
+                list.save();
+            },
+        });
+    } else {
+        $('#disableDate').flatpickr().destroy();
+        const list = AV.Object.createWithoutData('option', '5fe033ed6289d841a0ef12d7');
+        list.set('value', []);
+        list.save();
+    }
 });
 
 $('.dateInput').change(function (e) { 

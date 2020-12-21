@@ -27,17 +27,22 @@ $('.logout').click(function (e) {
     window.location.href = "login.html";
 });
 
-$('.dateInput').flatpickr(
-    {
-        "disable": [
-            function(date) {
-                return (date.getDay() === 0 || date.getDay() === 7);
-            }
-        ],
-        mode: "multiple",
-        dateFormat: "Y-m-d",
-    }
-);
+const query = new AV.Query('option');
+query.equalTo('optionName', 'customDateList');
+query.find().then((dateList) => {
+    $('.dateInput').flatpickr(
+        {
+            disable: [
+                function(date) {
+                    return (date.getDay() === 0 || dateList[0].get('value').includes(date.toISOString().split("T")[0]));
+                }
+            ],
+            mode: "multiple",
+            dateFormat: "Y-m-d"
+        }
+    );
+});
+
 $('.timeInput').flatpickr(
     {
         enableTime: true,
