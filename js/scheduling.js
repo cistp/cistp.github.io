@@ -122,17 +122,19 @@ $('.scheduleClass').click(function (e) {
   } else if (!ValidateEmail()){
     return;
   };
-  const query = new AV.Query('Classes');
-  query.equalTo('objectId', class__);
-  query.find().then((class_) => {
-    const tempCheck = class_[0].get('tuteeAmount');
-    console.log(tempCheck);
-    if (tempCheck > 2) {
-      alert("Sorry, this class is full");
-      location.reload();
-      return;
-    }
-  });
+  setTimeout(() => {
+    const query = new AV.Query('Classes');
+    query.equalTo('objectId', class__);
+    query.find().then((class_) => {
+      const tempCheck = class_[0].get('tuteeAmount');
+      console.log(tempCheck);
+      if (tempCheck > 2) {
+        alert("Sorry, this class is full");
+        location.reload();
+        return;
+      }
+    });
+  }, Math.floor(Math.random() * 601));
   name = $("#name").val();
   email = $("#email").val();
   const classes = AV.Object.createWithoutData('Classes', class__);
