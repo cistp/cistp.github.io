@@ -127,7 +127,6 @@ $('.scheduleClass').click(function (e) {
   query.equalTo('objectId', class__);
   query.find().then((class_) => {
     const tempCheck = class_[0].get('tuteeAmount');
-    console.log(tempCheck);
     setTimeout(() => {
       if (tempCheck >= 2) {
         alert("Sorry, this class is full");
