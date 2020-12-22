@@ -323,7 +323,8 @@ $('.scheduleClass').click(function (e) {
     <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Discord - Room ${rn}</p>
     <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
     <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you have any question, feel free to contact our officers for help.</p>
-    <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you no longer want to attend to this class. Click <a href="https://da-dog23.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}">here</a> to cancel it.</p>
+    <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you no longer want to attend to this class. Click the link below to cancel.</p>
+    <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><a href="https://da-dog23.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}">https://da-dog23.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}</a></p>
     <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
     <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">See you soon!</p>
     <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
