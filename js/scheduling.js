@@ -123,13 +123,13 @@ $('.scheduleClass').click(function (e) {
   } else if (!ValidateEmail()){
     return;
   };
-  setTimeout(() => {
-    const query = new AV.Query('Classes');
-    query.equalTo('objectId', class__);
-    query.find().then((class_) => {
-      const tempCheck = class_[0].get('tuteeAmount');
-      console.log(tempCheck);
-      if (tempCheck > 2) {
+  const query = new AV.Query('Classes');
+  query.equalTo('objectId', class__);
+  query.find().then((class_) => {
+    const tempCheck = class_[0].get('tuteeAmount');
+    console.log(tempCheck);
+    setTimeout(() => {
+      if (tempCheck >= 2) {
         alert("Sorry, this class is full");
         location.reload();
       } else {
@@ -393,8 +393,8 @@ $('.scheduleClass').click(function (e) {
           }
         });
       }
-    });
-  }, Math.floor(Math.random() * 601));
+    }, 500);
+  });
 })
 
 $('.prev2').click(function (e) { 
