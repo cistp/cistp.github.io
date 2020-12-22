@@ -278,7 +278,7 @@ $('#form-register').submit(function (e) {
         const tutorlist = new tutorList();
         tutorlist.set('tutorName', $('#name').val());
         tutorlist.set('user', user);
-        tutorlist.set('roomNumber', $('#rn').val());
+        tutorlist.set('roomNumber', parseInt($('#rn').val()));
         tutorlist.save().then((tutorlist) => {
             return;
         }, (error) => {
