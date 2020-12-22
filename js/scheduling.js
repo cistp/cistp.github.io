@@ -18,6 +18,25 @@ function unique(arr) {
 }
 
 $(document).ready(function () {
+  const query2 = new AV.Query('option');
+  query2.equalTo('optionName', 'sysToggle');
+  query2.find().then((optionVal) => {
+    if (optionVal[0].get('value').length != 0) {
+      $('.main').html(`<div class="container-fluid">
+      <h1>Hi, Welcome to the CIS Tutoring Program Class Scheduling System</h1>
+      <div class="unavailable" style="position: relative; top: 15px;">
+        <div class="card text-white bg-danger" style="margin: auto; width: fit-content; padding: 10px;">
+          <div class="card-body">
+            <h4 class="card-title">Error</h4>
+            <h5>Scheduling is currently unavailable</h5>
+            <small>If you have any question, contact our officers for help!</small>
+          </div>
+        </div>
+      </div>
+    </div>`);
+    return;
+    }
+  })
   const query = new AV.Query('tutorList');
   query.equalTo('isTutor', true);
   query.find().then((tutors) => {
@@ -123,6 +142,13 @@ $('.scheduleClass').click(function (e) {
   } else if (!ValidateEmail()){
     return;
   };
+  const query = new AV.Query('option');
+  query.equalTo('optionName', 'sysToggle');
+  query.find().then((optionVal) => {
+    if (optionVal[0].get('value').length != 0) {
+      return;
+    }
+  })
   setTimeout(() => {
     const query = new AV.Query('Classes');
     query.equalTo('objectId', class__);

@@ -137,6 +137,28 @@ $(document).ready(function () {
             });
         }
     })
+    const query5 = new AV.Query('option');
+    query5.equalTo('optionName', 'sysToggle');
+    query5.find().then((dateList) => {
+        if (dateList[0].get('value').length != 0) {
+            $('#systemToggle').bootstrapToggle('off');
+        } else {
+            $('#systemToggle').bootstrapToggle('on');
+        }
+    })
+});
+
+$('#systemToggle').change(function (e) { 
+    e.preventDefault();
+    if ($(this).prop('checked') == true) {
+        const list = AV.Object.createWithoutData('option', '5fe248358fe09378f5cdd7af');
+        list.set('value', []);
+        list.save();
+    } else {
+        const list = AV.Object.createWithoutData('option', '5fe248358fe09378f5cdd7af');
+        list.set('value', ["OFF"]);
+        list.save();
+    }
 });
 
 $('#cudToggle').change(function (e) { 
