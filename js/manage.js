@@ -302,12 +302,11 @@ $('#form-register').submit(function (e) {
         tutorlist.set('user', user);
         tutorlist.set('roomNumber', parseInt($('#rn').val()));
         tutorlist.save().then((tutorlist) => {
-            return;
+            $(this).closest('form').find("input[type=text], textarea").val("");
         }, (error) => {
             alert(error);
         });
     }, 1000);
-    $(this).closest('form').find("input[type=text], textarea").val("");
 });
 $('#selTutor').change(function (e) { 
     e.preventDefault();
