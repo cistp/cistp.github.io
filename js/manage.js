@@ -307,6 +307,7 @@ $('#form-register').submit(function (e) {
             alert(error);
         });
     }, 1000);
+    $(this).closest('form').find("input[type=text], textarea").val("");
 });
 $('#selTutor').change(function (e) { 
     e.preventDefault();
