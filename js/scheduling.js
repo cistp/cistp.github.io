@@ -1,4 +1,4 @@
-let tutorID, date, user, tutorsName, time, class__, tAmount, rn;
+let tutorID, date, user, tutorsName, time, class__, tAmount, rn, classInstance;
 let dateList = [];
 
 const { Query, User } = AV;
@@ -60,6 +60,7 @@ $('#selTutor').change(function (e) {
   let array = [];
   query.equalTo('tutor', user);
   query.find().then((dates) => {
+    classInstance = dates;
     for (let index = 0; index < dates.length; index++) {
       const date = dates[index];
       array.push(date.get('date'));
@@ -90,33 +91,29 @@ $('#selDate').change(function (e) {
   e.preventDefault();
   $(".step2").hide();
   $(".step3").show();
-  const query = new AV.Query('Classes');
+  let timeList = [];
   date = $('#selDate').val();
-  query.equalTo('tutor', user);
-  query.equalTo('date', date);
-  query.lessThan('tuteeAmount', 2);
-  query.find().then((times) => {
-    for (let index = 0; index < times.length; index++) {
-      const time = times[index];
-      $("#selTime").append("<option value='" + time + "'>" + time.get('startTime') + "</option>");
+  for (let index = 0; index < classInstance.length; index++) {
+    const times = classInstance[index];
+    if (!timeList.includes(times.get('startTime'))) {
+      timeList.push(times.get('startTime'));
+      $("#selTime").append("<option>" + times.get('startTime') + "</option>"); 
     }
-  });
+  }
 });
 
-$('#selTime').change(function (e) { 
+$('.step3').on("change", "#selTime", function (e) { 
   e.preventDefault();
   $(".step3").hide();
   $(".step4").show();
-  const query = new AV.Query('Classes');
   time = $('#selTime option:selected').text();
-  query.equalTo('tutor', user);
-  query.equalTo('date', date);
-  query.equalTo('startTime', time);
-  query.lessThan('tuteeAmount', 2);
-  query.find().then((class_) => {
-    class__ = class_[0].id;
-    tAmount = class_[0].get('tuteeAmount') + 1;
-  });
+  for (let index = 0; index < classInstance.length; index++) {
+    const cls = classInstance[index];
+    if (cls.get('date') == date && cls.get('startTime') == time) {
+      class__ = cls.id;
+      tAmount = cls.get('tuteeAmount') + 1;
+    }
+  }
 });
 
 function ValidateEmail(mail) 
@@ -146,7 +143,10 @@ $('.scheduleClass').click(function (e) {
       const query = new AV.Query('Classes');
       query.equalTo('objectId', class__);
       query.find().then((class_) => {
-      const tempCheck = class_[0].get('tuteeAmount');
+        if (class_[0].get('tutee').includes($("#name").val())) {
+          return; 
+        }
+        const tempCheck = class_[0].get('tuteeAmount');
         if (tempCheck >= 2) {
           alert("Sorry, this class is full");
           setTimeout(() => {
@@ -429,6 +429,15 @@ $('.prev2').click(function (e) {
 
 $('.prev3').click(function (e) { 
   e.preventDefault();
+  $(".step3").html(`<div class="card text-dark bg-white" style="margin: auto; width: fit-content; padding: 10px;">
+  <div class="card-body">
+    <h4 class="card-title">Please select a Time</h4>
+    <select id='selTime' class="form-control" style='width: auto;'>
+      <option value='0'>Select Time</option>
+    </select>
+    <button type="button" class="btn btn-primary prev3" style="position: relative; top: 8px;">Previous</button>
+  </div>
+</div>`)
   $(".step3").fadeOut();
   setTimeout(() => {
     $(".step2").fadeIn();
