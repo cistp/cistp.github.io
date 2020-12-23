@@ -300,6 +300,7 @@ $('#form-register').submit(function (e) {
         const tutorlist = new tutorList();
         tutorlist.set('tutorName', $('#name').val());
         tutorlist.set('user', user);
+        tutorlist.set('email', $('#email').val());
         tutorlist.set('roomNumber', parseInt($('#rn').val()));
         tutorlist.save().then((tutorlist) => {
             $(this).closest('form').find("input[type=text], textarea").val("");
