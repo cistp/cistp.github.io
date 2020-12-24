@@ -63,7 +63,9 @@ $('#selTutor').change(function (e) {
     classInstance = dates;
     for (let index = 0; index < dates.length; index++) {
       const date = dates[index];
-      array.push(date.get('date'));
+      if (date.get('tuteeAmount')) {
+        array.push(date.get('date'));
+      }
     };
     uArray = unique(array);
     for (let index = 0; index < uArray.length; index++) {
@@ -92,12 +94,10 @@ $('#selDate').change(function (e) {
   e.preventDefault();
   $(".step2").hide();
   $(".step3").show();
-  let timeList = [];
   date = $('#selDate').val();
   for (let index = 0; index < classInstance.length; index++) {
     const times = classInstance[index];
-    if (!timeList.includes(times.get('startTime'))) {
-      timeList.push(times.get('startTime'));
+    if (times.get('date') == date) {
       $("#selTime").append("<option>" + times.get('startTime') + "</option>"); 
     }
   }
@@ -108,12 +108,10 @@ $('.step3').on("change", "#selTime", function (e) {
   $(".step3").hide();
   $(".step4").show();
   time = $('#selTime option:selected').text();
-  for (let index = 0; index < classInstance.length; index++) {
-    const cls = classInstance[index];
-    if (cls.get('date') == date && cls.get('startTime') == time) {
-      class__ = cls.id;
-      tAmount = cls.get('tuteeAmount') + 1;
-    }
+  const cls = classInstance[0];
+  if (cls.get('date') == date && cls.get('startTime') == time) {
+    class__ = cls.id;
+    tAmount = cls.get('tuteeAmount') + 1;
   }
 });
 
