@@ -81,7 +81,9 @@ $('.createSchedule').click(function (e) {
                 query.find().then((clas) => {
                     if (clas.length == 0) {
                         classes.save().then((cls) => {
-                            
+                            setTimeout(() => {
+                                location.reload();
+                            }, 50);
                         }, (error) => {
                             alert("An error occurred when saving, contact officers for help.")
                             console.log(error);
@@ -89,9 +91,6 @@ $('.createSchedule').click(function (e) {
                     }
                 });
             }
-            setTimeout(() => {
-                location.reload();
-            }, 100);
         } else {
             const query = new AV.Query('Classes');
             query.equalTo('tutor', tutor);
