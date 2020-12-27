@@ -55,15 +55,15 @@ $('#selTutor').change(function (e) {
   $(".step2").show();
   tutorID = $(this).val();
   tutorsName = $("#selTutor option:selected").text();
-  const query = new AV.Query('Classes');
   user = AV.Object.createWithoutData('_User', tutorID);
   let array = [];
+  const query = new AV.Query('Classes');
   query.equalTo('tutor', user);
   query.find().then((dates) => {
     classInstance = dates;
     for (let index = 0; index < dates.length; index++) {
       const date = dates[index];
-      if (date.get('tuteeAmount')) {
+      if (date.get('tuteeAmount') <= 2) {
         array.push(date.get('date'));
       }
     };
@@ -73,7 +73,7 @@ $('#selTutor').change(function (e) {
       dateList.push(element);
     }
     let dateListNew = dateList;
-    if (dateList.length == 0) {
+    if (dateListNew.length == 0) {
       dateListNew = ["2999-1-1"];
     }
     $("#selDate").flatpickr({
@@ -654,15 +654,7 @@ $('.prev2').click(function (e) {
 
 $('.prev3').click(function (e) { 
   e.preventDefault();
-  $(".step3").html(`<div class="card text-dark bg-white" style="margin: auto; width: fit-content; padding: 10px;">
-  <div class="card-body">
-    <h4 class="card-title">Please select a Time</h4>
-    <select id='selTime' class="form-control" style='width: auto;'>
-      <option value='0'>Select Time</option>
-    </select>
-    <button type="button" class="btn btn-primary prev3" style="position: relative; top: 8px;">Previous</button>
-  </div>
-</div>`)
+  $("#selTime").html(`<option value='0'>Select Time</option>`)
   $(".step3").fadeOut();
   setTimeout(() => {
     $(".step2").fadeIn();
