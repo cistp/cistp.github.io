@@ -78,17 +78,39 @@
                 <div class="d-flex justify-content-start mt-1">
                     <input style="display: none; margin-left: 30px;" id="disableDate" type="text">
                 </div>
+                <button type="button" class="btn btn-danger btn-lg mt-2" data-toggle="modal" data-target="#rmAllClasses" style="width: fit-content;">
+                  Delete All Classes
+                </button>
+                <div class="modal fade" id="rmAllClasses" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Confirm</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                            </div>
+                            <div class="modal-body">
+                                Are You Sure? All the classes will be removed from the list!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <button type="button" class="btn btn-danger" id="removeAllClasses">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <hr />
             <h4>Class Cancellation:</h4>
-            <div class="d-flex justify-content-start">
-                <select id='selTutor' class="form-control" style='width: auto;'>
+            <div class="cancelSelection d-flex justify-content-start">
+                <select id='selTutor' class="form-control" style="width: auto;">
                     <option value='0'>Select Tutor</option>
                 </select>
-                <select id='selDate' class="form-control" style='width: auto;'>
+                <select id='selDate' class="form-control" style="width: auto;">
                     <option value='0'>Select Date</option>
                 </select>
-                <select id='selTime' class="form-control" style='width: auto;'>
+                <select id='selTime' class="form-control" style="width: auto;">
                     <option value='0'>Select Time</option>
                 </select>
             </div>
@@ -157,7 +179,6 @@
                 <tbody class="listTutee"></tbody>
             </table>
         </div>
-    </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

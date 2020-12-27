@@ -36,6 +36,8 @@ var nameList = [
   
   var finalName = ""
 
+  var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
 $('.dateInput').flatpickr(
     {
         dateFormat: "Y-m-d",
@@ -242,39 +244,35 @@ $('.logout').click(function (e) {
 
 $('.calendar').click(function (e) { 
     e.preventDefault();
-    $('.scheduleTab').fadeOut();
-    $('.userTab').fadeOut();
-    $('.tuteeTab').fadeOut();
-    setTimeout(() => {
-        $(".calendarTab").fadeIn();
-      }, 500);
+    $(".navbar-collapse").collapse('hide');
+    $('.scheduleTab').hide();
+    $('.userTab').hide();
+    $('.tuteeTab').hide();
+    $(".calendarTab").show();
 });
 $('.schedule').click(function (e) { 
     e.preventDefault();
-    $('.calendarTab').fadeOut();
-    $('.userTab').fadeOut();
-    $('.tuteeTab').fadeOut();
-    setTimeout(() => {
-        $(".scheduleTab").fadeIn();
-      }, 500);
+    $(".navbar-collapse").collapse('hide');
+    $('.calendarTab').hide();
+    $('.userTab').hide();
+    $('.tuteeTab').hide();
+    $(".scheduleTab").show();
 });
 $('.user').click(function (e) { 
     e.preventDefault();
-    $('.scheduleTab').fadeOut();
-    $('.calendarTab').fadeOut();
-    $('.tuteeTab').fadeOut();
-    setTimeout(() => {
-        $(".userTab").fadeIn();
-      }, 500);
+    $(".navbar-collapse").collapse('hide');
+    $('.scheduleTab').hide();
+    $('.calendarTab').hide();
+    $('.tuteeTab').hide();
+    $(".userTab").show();
 });
 $('.tutee').click(function (e) { 
     e.preventDefault();
-    $('.scheduleTab').fadeOut();
-    $('.userTab').fadeOut();
-    $('.calendarTab').fadeOut();
-    setTimeout(() => {
-        $(".tuteeTab").fadeIn();
-      }, 500);
+    $(".navbar-collapse").collapse('hide');
+    $('.scheduleTab').hide();
+    $('.userTab').hide();
+    $('.calendarTab').hide();
+    $(".tuteeTab").show();
 });
 
 $('#form-register').submit(function (e) { 
@@ -285,13 +283,13 @@ $('#form-register').submit(function (e) {
     user.setPassword($('#pass').val());
     user.set('role', 'Tutor');
     user.signUp().then((user) => {
-        alert(`Registered. ObjectID: ${user.id}`);
+        alert("Register Successful!");
       }, (error) => {
         alert("User already exists");
         return;
       });
       AV.User.become(currentUser).then((user) => {
-        console.log('Current User Login Successfully.');
+        console.log('OK');
       }, (error) => {
         console.log('when login currentUser' + error);
       });
@@ -371,7 +369,10 @@ $(".Listtutee").on('click', '.removeTime',function (e) {
     classObj.increment('tuteeAmount', -1);
     classObj.save();
     setTimeout(() => {
-        location.reload();
+        $('#selTutor').val('0');
+        $('#selDate').val('0');
+        $('#selTime').val('0');
+        $('.Listtutee').html("");
     }, 50);
 });
 
@@ -403,3 +404,19 @@ $('#randomPassword').click(function (e) {
     e.preventDefault();
     $('#pass').val(generatePassword());
 });
+
+$('#removeAllClasses').click(function (e) { 
+    e.preventDefault();
+    $('#rmAllClasses').modal('hide');
+    const query = new AV.Query('Classes');
+    query.equalTo('isActivate', true);
+    query.find().then((list) => {
+        console.log(list);
+        AV.Object.destroyAll(list);
+    });
+    alert("All Classes were deleted");
+});
+
+if (width <= 500) {
+    $('.cancelSelection').attr('class', 'd-flex align-items-start flex-column');
+}
