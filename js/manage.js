@@ -149,6 +149,15 @@ $(document).ready(function () {
             $('#systemToggle').bootstrapToggle('on');
         }
     })
+    const query6 = new AV.Query('option');
+    query6.equalTo('optionName', 'classesLimit');
+    query6.find().then((val) => {
+        if (val[0].get('value').length != 0) {
+            $('#schLimit').val(val[0].get('value')[0]);
+        } else {
+            $('#schLimit').val("");
+        }
+    })
 });
 
 $('#systemToggle').change(function (e) { 
@@ -431,3 +440,16 @@ $('#removeAllClasses').click(function (e) {
 if (width <= 500) {
     $('.cancelSelection').attr('class', 'd-flex align-items-start flex-column');
 }
+
+$('#schLimit').change(function (e) { 
+    e.preventDefault();
+    if (!$(this).val() || $(this).val() == 0) {
+        const list = AV.Object.createWithoutData('option', '5fe924957b936022ab8601f9');
+        list.set('value', []);
+        list.save();
+    } else {
+        const list = AV.Object.createWithoutData('option', '5fe924957b936022ab8601f9');
+        list.set('value', [parseInt($(this).val())]);
+        list.save();
+    }
+});

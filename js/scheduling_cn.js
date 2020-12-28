@@ -108,10 +108,12 @@ $('.step3').on("change", "#selTime", function (e) {
   $(".step3").hide();
   $(".step4").show();
   time = $('#selTime option:selected').text();
-  const cls = classInstance[0];
-  if (cls.get('date') == date && cls.get('startTime') == time) {
-    class__ = cls.id;
-    tAmount = cls.get('tuteeAmount') + 1;
+  for (let index = 0; index < classInstance.length; index++) {
+    const cls = classInstance[index];
+    if (cls.get('date') == date && cls.get('startTime') == time) {
+      class__ = cls.id;
+      tAmount = cls.get('tuteeAmount') + 1;
+    }
   }
 });
 
@@ -138,6 +140,26 @@ $('.scheduleClass').click(function (e) {
     if (optionVal[0].get('value').length != 0) {
       return;
     }
+  const query2 = new AV.Query('option');
+  query2.equalTo('optionName', 'classesLimit');
+  query2.find().then((val) => {
+    if (val[0].get('value').length != 0) {
+      amountCount = 0;
+      classLimit = val[0].get('value')[0];
+      for (let index = 0; index < classInstance.length; index++) {
+        const cls = classInstance[index];
+        if (cls.get('tutee').includes($("#name").val())) {
+          amountCount++;
+        }
+      }
+      if (amountCount >= classLimit) {
+        alert("無法預約此課程. 原因: 您預約了太多的課程。");
+        setTimeout(() => {
+          location.reload();
+        }, 100);
+      }
+    }
+  });
     setTimeout(() => {
       const query = new AV.Query('Classes');
       query.equalTo('objectId', class__);

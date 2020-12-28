@@ -78,7 +78,14 @@
                 <div class="d-flex justify-content-start mt-1">
                     <input style="display: none; margin-left: 30px;" id="disableDate" type="text">
                 </div>
-                <button type="button" class="btn btn-danger btn-lg mt-2" data-toggle="modal" data-target="#rmAllClasses" style="width: fit-content;">
+                <div class="d-flex justify-content-start mt-1">
+                    <p class="text-muted h6 mt-2 pr-2">Tutee Schedule Limit: </p>
+                    <div class="form-group">
+                      <input type="number"
+                        class="form-control" name="schLimit" id="schLimit" placeholder="Unlimited">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rmAllClasses" style="width: fit-content;">
                   Delete All Classes
                 </button>
                 <div class="modal fade" id="rmAllClasses" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
@@ -152,12 +159,12 @@
                         </div>
                         <div class="form-group">
                             <label for="rn">Room Number</label>
-                            <input type="text" class="form-control" name="rn" id="rn" placeholder="Discord Room Number"
+                            <input type="number" class="form-control" name="rn" id="rn" placeholder="Discord Room Number"
                                 required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" name="email" id="email" placeholder="Email"
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Email"
                                 required>
                         </div>
                         <button type="submit" class="btn btn-primary col-12">Register</button>
