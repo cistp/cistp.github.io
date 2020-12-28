@@ -30,11 +30,13 @@ $('.logout').click(function (e) {
 const query = new AV.Query('option');
 query.equalTo('optionName', 'customDateList');
 query.find().then((dateList) => {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
     $('.dateInput').flatpickr(
         {
             disable: [
                 function(date) {
-                    return (date.getDay() === 0 || dateList[0].get('value').includes(date.toISOString().split("T")[0]));
+                    return (date.getDay() === 0 || dateList[0].get('value').includes(date.toISOString().split("T")[0]) || date <= today);
                 }
             ],
             mode: "multiple",
