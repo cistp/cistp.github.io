@@ -11,7 +11,19 @@ $('#form-login').submit(function(){
     let username = $('#username').val();
     let password = $('#pass').val();
     AV.User.logIn(username, password).then((User) => {
-      window.location.href = "tutor_edit.html";
+      const query = new AV.Query('tutorList');
+      query.equalTo('user', User);
+      query.find().then((tutors) => {
+        if (tutors.length != 0) {
+          window.location.href = "tutor_edit.html";
+        } else {
+          $(".uperror").show();
+          User.destroy();
+          setTimeout(() => {
+            AV.User.logOut();
+          }, 100);
+        }
+    });
     }, (error) => {
       $(".uperror").show();
     });
