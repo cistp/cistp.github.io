@@ -3,9 +3,17 @@ AV.init({
     appId: "PIK2R2tijm6BuxTj6sY91OAP-MdYXbMMI",
     appKey: "1dcvKnz8iUtkjfEExfCjwKMF",
   });
-const currentUser = AV.User.current();
-if (!currentUser) {
+if (!AV.User.current()) {
     window.location.href = 'login.html';
+} else {
+    const query = new AV.Query('tutorList');
+    query.equalTo('user', AV.User.current());
+    query.find().then((tutors) => {
+        if (tutors.length == 0) {
+            AV.User.logOut();
+            window.location.href = 'login.html';
+        }
+    });
 }
 $(document).ready(function () {
     const tutor = AV.User.current();
