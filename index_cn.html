@@ -35,6 +35,31 @@
   <div class="main">
     <div class="container-fluid">
       <h1>您好，歡迎使用CIS輔導計劃課程預約系統</h1>
+      <div class="login" style="position: relative; top: 15px; display: none;">
+        <div class="card text-dark bg-white" style="margin: auto; width: fit-content; padding: 10px;">
+          <div class="card-body">
+            <h4 class="card-title">Tutee Login</h4>
+            <form id="form-login" method="GET">
+              <div class="loginError" style="display: none;">
+                  <div class="alert alert-warning" role="alert">
+                      <span>郵箱或密碼不正確.</span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Email">郵箱</label>
+                  <input type="text" class="form-control" name="email" id="email"
+                      placeholder="Enter Your Email" required autofocus>
+              </div>
+              <div class="form-group">
+                  <label for="pass">密碼</label>
+                  <input type="password" class="form-control" name="pass" id="pass" placeholder="Enter Your Password"
+                      required>
+              </div>
+              <button type="submit" class="btn btn-primary col-12">登錄</button>
+            </form>
+          </div>
+        </div>
+      </div>
       <div class="step1" style="position: relative; top: 15px;">
         <div class="card text-dark bg-white" style="margin: auto; width: fit-content; padding: 10px;">
           <div class="card-body">
@@ -74,21 +99,29 @@
       <div class="step4" style="position: relative; top: 10px; display: none;">
         <div class="card text-dark bg-white" style="margin: auto; width: fit-content; padding: 10px;">
           <div class="card-body">
-            <h4 class="card-title">輸入您的信息</h4>
+            <h4 class="card-title">請再次確認以下信息</h4>
             <div class="container">
               <form>
                 <div class="form-group">
-                  <label for="name">學生名字:</label>
-                  <input type="email" class="form-control" id="name" placeholder="First Name, Last Name">
+                  <label for="name">學員名字:</label>
+                  <input type="text" class="form-control" id="name" value="" disabled>
                 </div>
                 <div class="form-group">
-                  <label for="email">郵箱:</label>
-                  <input type="email" class="form-control" id="email" placeholder="Enter your email here">
+                  <label for="emailTutee">郵箱:</label>
+                  <input type="email" class="form-control" id="emailTutee" value="" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="date">上課日期:</label>
+                  <input type="text" class="form-control" id="date" value="" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="time">上課時間:</label>
+                  <input type="text" class="form-control" id="time" value="" disabled>
                 </div>
                 <button type="button" class="btn btn-primary prev4"
                   style="position: relative; top: 8px;">返回</button>
                 <button type="submit" class="btn btn-primary scheduleClass float-right"
-                  style="position: relative; top: 8px;">提交</button>
+                  style="position: relative; top: 8px;">確認</button>
               </form>
             </div>
           </div>

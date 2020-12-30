@@ -18,6 +18,13 @@ function unique(arr) {
 }
 
 $(document).ready(function () {
+  const currentUser = AV.User.current();
+  if (currentUser && currentUser.get('role') == "Tutee") {
+    $('.navbar-right').append(`<a class="nav-link logout" href="#">登出</a>`);
+  } else {
+    $('.login').show();
+    $('.step1').hide();
+  }
   const query2 = new AV.Query('option');
   query2.equalTo('optionName', 'sysToggle');
   query2.find().then((optionVal) => {
@@ -47,6 +54,31 @@ $(document).ready(function () {
       $("#selTutor").append("<option value='" + id + "'>" + tutorsName + "</option>");
     }
   });
+});
+
+$('#form-login').submit(function (e) { 
+  e.preventDefault();
+  const username = $('#email').val();
+  const password = $('#pass').val();
+  AV.User.logIn(username, password).then((User) => {
+    if (User.get("role") != "Tutee") {
+      AV.User.logOut();
+    } else {
+      setTimeout(() => {
+        location.reload();
+      }, 50);
+    }
+  }, (error) => {
+    $(".loginError").show();
+  });
+  return false;
+});
+
+$('.navbar-right').on('click', '.logout', function () {
+  AV.User.logOut();
+  setTimeout(() => {
+    location.reload();
+  }, 50);
 });
 
 $('#selTutor').change(function (e) { 
@@ -103,79 +135,66 @@ $('#selDate').change(function (e) {
   }
 });
 
-$('.step3').on("change", "#selTime", function (e) { 
+$('#selTime').change(function (e) { 
   e.preventDefault();
   $(".step3").hide();
   $(".step4").show();
   time = $('#selTime option:selected').text();
-  for (let index = 0; index < classInstance.length; index++) {
-    const cls = classInstance[index];
-    if (cls.get('date') == date && cls.get('startTime') == time) {
-      class__ = cls.id;
-      tAmount = cls.get('tuteeAmount') + 1;
+  const query = new AV.Query('tuteeList');
+  query.equalTo('user', AV.User.current());
+  query.find().then((tutee) => {
+    amountCount = tutee[0].get('limiter');
+    name = tutee[0].get('name');
+    email = tutee[0].get('email');
+    $('#name').val(name);
+    $('#emailTutee').val(email);
+    $('#date').val(date);
+    $('#time').val(time);
+    for (let index = 0; index < classInstance.length; index++) {
+      const cls = classInstance[index];
+      if (cls.get('date') == date && cls.get('startTime') == time) {
+        class__ = cls.id;
+        tAmount = cls.get('tuteeAmount') + 1;
+      }
     }
-  }
+  })
 });
-
-function ValidateEmail(mail) 
-{
- if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test($("#email").val())){
-    return true;
-  }
-    alert("您輸入了一個無效的郵箱!");
-    return false;
-}
 
 $('.scheduleClass').click(function (e) {
   e.preventDefault();
-  if ($("#name").val() == "" || $("#email").val() == "") {
-    alert("請輸入您孩子的名字和郵箱");
-    return;
-  } else if (!ValidateEmail()){
-    return;
-  };
   const query = new AV.Query('option');
   query.equalTo('optionName', 'sysToggle');
   query.find().then((optionVal) => {
     if (optionVal[0].get('value').length != 0) {
       return;
     }
-  const query2 = new AV.Query('option');
-  query2.equalTo('optionName', 'classesLimit');
-  query2.find().then((val) => {
-    if (val[0].get('value').length != 0) {
-      amountCount = 0;
-      classLimit = val[0].get('value')[0];
-      for (let index = 0; index < classInstance.length; index++) {
-        const cls = classInstance[index];
-        if (cls.get('tutee').includes($("#name").val())) {
-          amountCount++;
+    const query2 = new AV.Query('option');
+    query2.equalTo('optionName', 'classesLimit');
+    query2.find().then((val) => {
+      if (val[0].get('value').length != 0) {
+        if (amountCount >= classLimit) {
+          alert("無法預約此課程. 原因: 您預約了太多的課程。");
+          setTimeout(() => {
+            location.reload();
+          }, 100);
         }
       }
-      if (amountCount >= classLimit) {
-        alert("無法預約此課程. 原因: 您預約了太多的課程。");
-        setTimeout(() => {
-          location.reload();
-        }, 100);
-      }
-    }
-  });
+    });
     setTimeout(() => {
       const query = new AV.Query('Classes');
-      query.equalTo('objectId', class__);
-      query.find().then((class_) => {
-        if (class_[0].get('tutee').includes($("#name").val())) {
+      query.get(class__).then((class_) => {
+        if (class_[0].get('tutee').includes(name)) {
           return;
         }
-        const tempCheck = class_[0].get('tuteeAmount');
-        if (tempCheck >= 2) {
+        if (!AV.User.current()) {
+          return;
+        }
+        if (class_[0].get('tuteeAmount') >= 2) {
           alert("抱歉，這個時間已經滿了");
           setTimeout(() => {
             location.reload();
           }, 100);
         } else {
-          name = $("#name").val();
-          email = $("#email").val();
           const classes = AV.Object.createWithoutData('Classes', class__);
           classes.add('tutee', name);
           classes.increment('tuteeAmount', 1);
@@ -643,22 +662,6 @@ $('.scheduleClass').click(function (e) {
             setTimeout(() => {
               $(".step5").fadeIn();
             }, 500);
-          const querytl = new AV.Query('tuteeList');
-          querytl.equalTo("name", name);
-          querytl.equalTo('email', email);
-          querytl.find().then((tutees) => {
-            if (tutees.length == 0) {
-              const tuteeL = AV.Object.extend('tuteeList');
-              const tuteel = new tuteeL();
-              tuteel.set('name', name);
-              tuteel.set('email', email);
-              tuteel.save().then((todo) => {
-                return;
-              }, (error) => {
-                console.log(error);
-              });
-            }
-          });
         }
       });
     }, Math.floor(Math.random() * 2001));

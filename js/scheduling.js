@@ -1,4 +1,4 @@
-let tutorID, date, user, tutorsName, time, class__, tAmount, rn, classInstance, tutorEmail, classLimit, amountCount, tuteeInstance;
+let tutorID, date, user, tutorsName, time, class__, tAmount, rn, classInstance, tutorEmail, classLimit, amountCount;
 let dateList = [];
 
 const { Query, User } = AV;
@@ -182,8 +182,7 @@ $('.scheduleClass').click(function (e) {
   });
     setTimeout(() => {
       const query = new AV.Query('Classes');
-      query.equalTo('objectId', class__);
-      query.find().then((class_) => {
+      query.get(class__).then((class_) => {
         if (class_[0].get('tutee').includes(name)) {
           return;
         }
