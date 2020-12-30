@@ -1,4 +1,4 @@
-let tutorID, date, user, tutorsName, time, class__, tAmount, rn, classInstance, tutorEmail, classLimit, amountCount;
+let tutorID, date, user, tutorsName, time, class__, tAmount, rn, classInstance, tutorEmail, classLimit, amountCount, tuteeInstance;
 let dateList = [];
 
 const { Query, User } = AV;
@@ -18,6 +18,13 @@ function unique(arr) {
 }
 
 $(document).ready(function () {
+  const currentUser = AV.User.current();
+  if (currentUser && currentUser.get('role') == "Tutee") {
+    $('.navbar-right').append(`<a class="nav-link logout" href="#">Logout</a>`);
+  } else {
+    $('.login').show();
+    $('.step1').hide();
+  }
   const query2 = new AV.Query('option');
   query2.equalTo('optionName', 'sysToggle');
   query2.find().then((optionVal) => {
@@ -46,7 +53,32 @@ $(document).ready(function () {
       const id = tutor.get('user').id;
       $("#selTutor").append("<option value='" + id + "'>" + tutorsName + "</option>");
     }
+  })
+});
+
+$('#form-login').submit(function (e) { 
+  e.preventDefault();
+  const username = $('#email').val();
+  const password = $('#pass').val();
+  AV.User.logIn(username, password).then((User) => {
+    if (User.get("role") != "Tutee") {
+      AV.User.logOut();
+    } else {
+      setTimeout(() => {
+        location.reload();
+      }, 50);
+    }
+  }, (error) => {
+    $(".loginError").show();
   });
+  return false;
+});
+
+$('.navbar-right').on('click', '.logout', function () {
+  AV.User.logOut();
+  setTimeout(() => {
+    location.reload();
+  }, 50);
 });
 
 $('#selTutor').change(function (e) { 
@@ -103,37 +135,33 @@ $('#selDate').change(function (e) {
   }
 });
 
-$('.step3').on("change", "#selTime", function (e) { 
+$('#selTime').change(function (e) { 
   e.preventDefault();
   $(".step3").hide();
   $(".step4").show();
   time = $('#selTime option:selected').text();
-  for (let index = 0; index < classInstance.length; index++) {
-    const cls = classInstance[index];
-    if (cls.get('date') == date && cls.get('startTime') == time) {
-      class__ = cls.id;
-      tAmount = cls.get('tuteeAmount') + 1;
+  const query = new AV.Query('tuteeList');
+  query.equalTo('user', AV.User.current());
+  query.find().then((tutee) => {
+    amountCount = tutee[0].get('limiter');
+    name = tutee[0].get('name');
+    email = tutee[0].get('email');
+    $('#name').val(name);
+    $('#emailTutee').val(email);
+    $('#date').val(date);
+    $('#time').val(time);
+    for (let index = 0; index < classInstance.length; index++) {
+      const cls = classInstance[index];
+      if (cls.get('date') == date && cls.get('startTime') == time) {
+        class__ = cls.id;
+        tAmount = cls.get('tuteeAmount') + 1;
+      }
     }
-  }
+  })
 });
-
-function ValidateEmail(mail) 
-{
- if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test($("#email").val())){
-    return true;
-  }
-    alert("You have entered an invalid email address!");
-    return false;
-}
 
 $('.scheduleClass').click(function (e) {
   e.preventDefault();
-  if ($("#name").val() == "" || $("#email").val() == "") {
-    alert("Please enter tutee's name and email");
-    return;
-  } else if (!ValidateEmail()){
-    return;
-  };
   const query = new AV.Query('option');
   query.equalTo('optionName', 'sysToggle');
   query.find().then((optionVal) => {
@@ -144,14 +172,6 @@ $('.scheduleClass').click(function (e) {
   query2.equalTo('optionName', 'classesLimit');
   query2.find().then((val) => {
     if (val[0].get('value').length != 0) {
-      amountCount = 0;
-      classLimit = val[0].get('value')[0];
-      for (let index = 0; index < classInstance.length; index++) {
-        const cls = classInstance[index];
-        if (cls.get('tutee').includes($("#name").val())) {
-          amountCount++;
-        }
-      }
       if (amountCount >= classLimit) {
         alert("Unable to Schedule Class. Reason: You've scheduled too many classes.");
         setTimeout(() => {
@@ -164,7 +184,10 @@ $('.scheduleClass').click(function (e) {
       const query = new AV.Query('Classes');
       query.equalTo('objectId', class__);
       query.find().then((class_) => {
-        if (class_[0].get('tutee').includes($("#name").val())) {
+        if (class_[0].get('tutee').includes(name)) {
+          return;
+        }
+        if (!AV.User.current()) {
           return;
         }
         if (class_[0].get('tuteeAmount') >= 2) {
@@ -173,8 +196,6 @@ $('.scheduleClass').click(function (e) {
             location.reload();
           }, 100);
         } else {
-          name = $("#name").val();
-          email = $("#email").val();
           const classes = AV.Object.createWithoutData('Classes', class__);
           classes.add('tutee', name);
           classes.increment('tuteeAmount', 1);
@@ -642,22 +663,6 @@ $('.scheduleClass').click(function (e) {
             setTimeout(() => {
               $(".step5").fadeIn();
             }, 500);
-          const querytl = new AV.Query('tuteeList');
-          querytl.equalTo("name", name);
-          querytl.equalTo('email', email);
-          querytl.find().then((tutees) => {
-            if (tutees.length == 0) {
-              const tuteeL = AV.Object.extend('tuteeList');
-              const tuteel = new tuteeL();
-              tuteel.set('name', name);
-              tuteel.set('email', email);
-              tuteel.save().then((todo) => {
-                return;
-              }, (error) => {
-                console.log(error);
-              });
-            }
-          });
         }
       });
     }, Math.floor(Math.random() * 2001));

@@ -35,10 +35,35 @@
   <div class="main">
     <div class="container-fluid">
       <h1>Hi, Welcome to the CIS Tutoring Program Class Scheduling System</h1>
+      <div class="login" style="position: relative; top: 15px; display: none;">
+        <div class="card text-dark bg-white" style="margin: auto; width: fit-content; padding: 10px;">
+          <div class="card-body">
+            <h4 class="card-title">Tutee Login</h4>
+            <form id="form-login" method="GET">
+              <div class="loginError" style="display: none;">
+                  <div class="alert alert-warning" role="alert">
+                      <span>Incorrect email or password.</span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Email">Email</label>
+                  <input type="text" class="form-control" name="email" id="email"
+                      placeholder="Enter Your Email" required autofocus>
+              </div>
+              <div class="form-group">
+                  <label for="pass">Password</label>
+                  <input type="password" class="form-control" name="pass" id="pass" placeholder="Enter Your Password"
+                      required>
+              </div>
+              <button type="submit" class="btn btn-primary col-12">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
       <div class="step1" style="position: relative; top: 15px;">
         <div class="card text-dark bg-white" style="margin: auto; width: fit-content; padding: 10px;">
           <div class="card-body">
-            <h4 class="card-title">Please select a Tutor to start</h4>
+            <h4 class="card-title">Please select a Tutor</h4>
             <select id='selTutor' class="form-control" style='width: auto;'>
               <option value='0'>Select Tutor</option>
             </select>
@@ -74,21 +99,29 @@
       <div class="step4" style="position: relative; top: 10px; display: none;">
         <div class="card text-dark bg-white" style="margin: auto; width: fit-content; padding: 10px;">
           <div class="card-body">
-            <h4 class="card-title">Please enter your information</h4>
+            <h4 class="card-title">Confirm your information</h4>
             <div class="container">
               <form>
                 <div class="form-group">
                   <label for="name">Tutee Name:</label>
-                  <input type="email" class="form-control" id="name" placeholder="First Name, Last Name">
+                  <input type="text" class="form-control" id="name" value="" disabled>
                 </div>
                 <div class="form-group">
-                  <label for="email">Email:</label>
-                  <input type="email" class="form-control" id="email" placeholder="Enter your email here">
+                  <label for="emailTutee">Email:</label>
+                  <input type="email" class="form-control" id="emailTutee" value="" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="date">Date:</label>
+                  <input type="text" class="form-control" id="date" value="" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="time">Time:</label>
+                  <input type="text" class="form-control" id="time" value="" disabled>
                 </div>
                 <button type="button" class="btn btn-primary prev4"
                   style="position: relative; top: 8px;">Previous</button>
                 <button type="submit" class="btn btn-primary scheduleClass float-right"
-                  style="position: relative; top: 8px;">Submit</button>
+                  style="position: relative; top: 8px;">Confirm</button>
               </form>
             </div>
           </div>

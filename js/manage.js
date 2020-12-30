@@ -502,12 +502,13 @@ $('#form-tuteeRegister').submit(function (e) {
     user.set('role', 'Tutee');
     user.signUp().then((user) => {
         alert("Register Successful!");
+        const userTutee = user;
         AV.User.become(currentUser).then((user) => {
             setTimeout(() => {
                 const tuteeList = AV.Object.extend('tuteeList');
                 const tuteelist = new tuteeList();
                 tuteelist.set('email', $('#tuteeEmail').val());
-                tuteelist.set('user', user);
+                tuteelist.set('user', userTutee);
                 tuteelist.set('name', $('#tuteeName').val());
                 tuteelist.set('tuteePass', $('#tuteePass').val());
                 tuteelist.save().then((tuteelist) => {
