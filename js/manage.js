@@ -11,33 +11,8 @@ if (!currentUser) {
 if (currentUser.get("role") != "Admin") {
     window.location.href = 'manage_login.html';
 }
-var nameList = [
-    'Time','Past','Future','Dev',
-    'Fly','Flying','Soar','Soaring','Power','Falling',
-    'Fall','Jump','Cliff','Mountain','Rend','Red','Blue',
-    'Green','Yellow','Gold','Demon','Demonic','Panda','Cat',
-    'Kitty','Kitten','Zero','Memory','Trooper','XX','Bandit',
-    'Fear','Light','Glow','Tread','Deep','Deeper','Deepest',
-    'Mine','Your','Worst','Enemy','Hostile','Force','Video',
-    'Game','Donkey','Mule','Colt','Cult','Cultist','Magnum',
-    'Gun','Assault','Recon','Trap','Trapper','Redeem','Code',
-    'Script','Writer','Near','Close','Open','Cube','Circle',
-    'Geo','Genome','Germ','Spaz','Shot','Echo','Beta','Alpha',
-    'Gamma','Omega','Seal','Squid','Money','Cash','Lord','King',
-    'Duke','Rest','Fire','Flame','Morrow','Break','Breaker','Numb',
-    'Ice','Cold','Rotten','Sick','Sickly','Janitor','Camel','Rooster',
-    'Sand','Desert','Dessert','Hurdle','Racer','Eraser','Erase','Big',
-    'Small','Short','Tall','Sith','Bounty','Hunter','Cracked','Broken',
-    'Sad','Happy','Joy','Joyful','Crimson','Destiny','Deceit','Lies',
-    'Lie','Honest','Destined','Bloxxer','Hawk','Eagle','Hawker','Walker',
-    'Zombie','Sarge','Capt','Captain','Punch','One','Two','Uno','Slice',
-    'Slash','Melt','Melted','Melting','Fell','Wolf','Hound',
-    'Legacy','Sharp','Dead','Mew','Chuckle','Bubba','Bubble','Sandwich','Smasher','Extreme','Multi','Universe','Ultimate','Death','Ready','Monkey','Elevator','Wrench','Grease','Head','Theme','Grand','Cool','Kid','Boy','Girl','Vortex','Paradox'
-  ]; 
-  
-  var finalName = ""
 
-  var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 
 $('.dateInput').flatpickr(
     {
@@ -107,7 +82,7 @@ $(document).ready(function () {
     query2.find().then((tutees) => {
         for (let index = 0; index < tutees.length; index++) {
             const element = tutees[index];
-            const comb2 = "<tr><td>" + element.get('name') +"</td><td>" + element.get('email') + '</td></tr>';
+            const comb2 = "<tr><td>" + element.get('name') +"</td><td>" + element.get('email') + '</td><td><button type="button" class="removeTutee btn btn-outline-primary" data-toggle="modal" data-target="#deleteTutee" value="' + element.id + '" tuteeName="' + element.get('name') + '"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button></td></tr>';
             $('.listTutee').append(comb2);
         }
     })
@@ -119,6 +94,7 @@ $(document).ready(function () {
         const name = tutor.get('tutorName');
         const id = tutor.get('user').id;
         $("#selTutor").append("<option value='" + id + "'>" + name + "</option>");
+        $("#selTutorVH").append("<option value='" + tutors[index].id + "'>" + name + "</option>");
     }
     });
     const query4 = new AV.Query('option');
@@ -317,6 +293,7 @@ $('#form-register').submit(function (e) {
         });
     }, 1000);
 });
+
 $('#selTutor').change(function (e) { 
     e.preventDefault();
     $('#selDate').html(`<option value='0'>Select Date</option>`);
@@ -396,20 +373,6 @@ $(".Listtutee").on('click', '.removeTime', function (e) {
     }, 50);
 });
 
-function randName(){
-	finalName = nameList[Math.floor( Math.random() * nameList.length )];
-	finalName += nameList[Math.floor( Math.random() * nameList.length )];
-	if ( Math.random() > 0.5 ) {
-	finalName += nameList[Math.floor( Math.random() * nameList.length )];
-}
-	return finalName;
-};
-
-$('#randomUsername').click(function (e) { 
-    e.preventDefault();
-    $('#username').val(randName());
-});
-
 function generatePassword() {
     var length = 8,
         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
@@ -423,6 +386,11 @@ function generatePassword() {
 $('#randomPassword').click(function (e) { 
     e.preventDefault();
     $('#pass').val(generatePassword());
+});
+
+$('#tuteeRandomPassword').click(function (e) { 
+    e.preventDefault();
+    $('#tuteePass').val(generatePassword());
 });
 
 $('#removeAllClasses').click(function (e) { 
@@ -491,4 +459,100 @@ $('.ListAllTutor').on('click', '.removeTutor',function () {
             location.reload();
         }, 50);
       });
+});
+
+$('.listTutee').on('click', '.removeTutee',function () {
+    const tuteeID = AV.Object.createWithoutData('tuteeList', $(this).val());
+    const instanceID = $(this).val();
+    const tuteeName = $(this).attr('tuteeName');
+    $('#rmModalTutee').html(`Are you sure? Tutee ${tuteeName}'s account will be deleted. This action can't be undo!`);
+    $('#deleteTutee').modal({
+        backdrop: 'static',
+        keyboard: false
+    }).on('click', '.confirm', function(e) {
+        const currentUser = AV.User.current().getSessionToken();
+        const query = new AV.Query('tuteeList');
+        query.get(instanceID).then((tuteeInstance) => {
+            AV.User.logIn(tuteeInstance.get('email'), tuteeInstance.get('tuteePass')).then((user) => {
+                user.destroy();
+                AV.User.become(currentUser).then((user) => {
+                    console.log('OK');
+                    tuteeID.destroy();
+                  }, (error) => {
+                    console.log('when login currentUser' + error);
+                  });
+            }, (error) => {
+              alert(`Error: ${error}`);
+              return;
+            });
+        });
+        alert(`Tutee ${tuteeName} deleted`);
+        setTimeout(() => {
+            location.reload();
+        }, 500);
+      });
+});
+
+$('#form-tuteeRegister').submit(function (e) { 
+    e.preventDefault();
+    const user = new AV.User();
+    const currentUser = AV.User.current().getSessionToken();
+    user.setUsername($('#tuteeEmail').val());
+    user.setPassword($('#tuteePass').val());
+    user.set('role', 'Tutee');
+    user.signUp().then((user) => {
+        alert("Register Successful!");
+        AV.User.become(currentUser).then((user) => {
+            setTimeout(() => {
+                const tuteeList = AV.Object.extend('tuteeList');
+                const tuteelist = new tuteeList();
+                tuteelist.set('email', $('#tuteeEmail').val());
+                tuteelist.set('user', user);
+                tuteelist.set('name', $('#tuteeName').val());
+                tuteelist.set('tuteePass', $('#tuteePass').val());
+                tuteelist.save().then((tuteelist) => {
+                    $(this).closest('form').find("input[type=text], textarea, input[type=number]").val("");
+                }, (error) => {
+                    alert(error);
+                });
+            }, 500);
+            console.log('OK');
+          }, (error) => {
+            console.log('when login currentUser' + error);
+          });
+      }, (error) => {
+        alert("User already exists");
+      });
+});
+
+$('#selTutorVH').change(function (e) {
+    e.preventDefault();
+    const query = new AV.Query('tutorList');
+    query.get($(this).val()).then((tutorInstance) => {
+        const VH = tutorInstance.get("volunteerHour");
+        $('.VHcontrolElement').html(`<div class="d-flex justify-content-start">
+        <button type="button" name="VHSub" id="VHSub" class="btn btn-outline-primary mr-2" btn-lg btn-block"><i class="fa fa-minus" aria-hidden="true"></i></button>
+        <input type="text" class="form-control input-VH" style="width: 8%; text-align: center;" value="${VH}">
+        <button type="button" name="VHAdd" id="VHAdd" class="btn btn-outline-primary ml-2" btn-lg btn-block"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    </div>
+    <div class="mt-2">
+        <button type="button" name="saveVH" id="saveVH" class="btn btn-primary" btn-lg btn-block">Save</button>
+    </div>`);
+    });
+});
+
+$('.VHcontrolElement').on('click', '#saveVH', function () {
+    const tutor = AV.Object.createWithoutData('tutorList', $('#selTutorVH').val());
+    tutor.set('volunteerHour', parseFloat($('.input-VH').val()));
+    tutor.save();
+    $('.VHcontrolElement').html("");
+    $('#selTutorVH').val('0');
+});
+
+$('.VHcontrolElement').on('click', '#VHAdd', function () {
+    $('.input-VH').val(parseFloat($('.input-VH').val()) + 0.25);
+});
+
+$('.VHcontrolElement').on('click', '#VHSub', function () {
+    $('.input-VH').val(parseFloat($('.input-VH').val()) - 0.25);
 });
