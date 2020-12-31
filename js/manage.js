@@ -250,6 +250,7 @@ $('.tutee').click(function (e) {
     $('.userTab').hide();
     $('.calendarTab').hide();
     $(".tuteeTab").show();
+    $('.listTutee').html("");
     const query = new AV.Query('tuteeList');
     query.equalTo('isTutee', true);
     query.find().then((tutees) => {
