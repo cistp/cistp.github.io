@@ -183,13 +183,13 @@ $('.scheduleClass').click(function (e) {
     setTimeout(() => {
       const query = new AV.Query('Classes');
       query.get(class__).then((class_) => {
-        if (class_[0].get('tutee').includes(name)) {
+        if (class_.get('tutee').includes(name)) {
           return;
         }
         if (!AV.User.current()) {
           return;
         }
-        if (class_[0].get('tuteeAmount') >= 2) {
+        if (class_.get('tuteeAmount') >= 2) {
           alert("抱歉，這個時間已經滿了");
           setTimeout(() => {
             location.reload();
