@@ -17,12 +17,20 @@ $('#form-login').submit(function(){
         if (tutors.length != 0) {
           window.location.href = "tutor_edit.html";
         } else {
-          $(".uperror").show();
-          User.destroy();
-          setTimeout(() => {
-            AV.User.logOut();
-          }, 100);
-        }
+          const query = new AV.Query('tuteeList');
+          query.equalTo('user', User);
+          query.find().then((tutees) => {
+            if (tutees.length == 0) {
+              $(".uperror").show();
+              User.destroy();
+              setTimeout(() => {
+                AV.User.logOut();
+              }, 100);
+            } else {
+              $(".uperror").show();
+            }
+          })
+       }
     });
     }, (error) => {
       $(".uperror").show();

@@ -383,7 +383,7 @@ $('.scheduleClass').click(function (e) {
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">如果您有任何問題，歡迎您隨時與我們聯繫.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">如果您不再想參加此課程。 點擊下面的鏈接取消.</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><a href="https://da-dog23.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}">https://da-dog23.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}</a></p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><a href="https://cistp.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}">https://da-dog23.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}</a></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">期待您的到來!</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
