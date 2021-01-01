@@ -10,20 +10,56 @@ AV.init({
 function unique(arr) {
   var array = [];
   for (var i = 0; i < arr.length; i++) {
-      if (array .indexOf(arr[i]) === -1) {
-          array .push(arr[i])
+      if (array.indexOf(arr[i]) === -1) {
+          array.push(arr[i])
       }
   }
   return array;
 }
 
+function setCookie(cookieName, val) {
+  let date = new Date();
+　date.setDate(date.getDate()+1024);
+　date.toGMTString();
+  document.cookie = `${cookieName}=${val};expires=${date}`
+}
+
+function rmCookie(cookieName) {
+  if (document.cookie.length > 0) {
+    let cookies = decodeURIComponent(document.cookie).split(";");
+    for (let index = 0; index < cookies.length; index++) {
+      const c = cookies[index].split("=");
+      if (c.includes(cookieName)) {
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      }
+    }
+  }
+}
+
+function getCookie(cookieName) {
+  if (document.cookie.length > 0) {
+    let cookies = decodeURIComponent(document.cookie).split(";");
+    for (let index = 0; index < cookies.length; index++) {
+      const c_name = cookies[index].split("=")[0];
+      if (c_name == cookieName) {
+        return cookies[index].split("=")[1];
+      }
+    }
+  }
+  return "";
+}
+
 $(document).ready(function () {
   const currentUser = AV.User.current();
   if (currentUser && currentUser.get('role') == "Tutee") {
-    $('.navbar-right').append(`<a class="nav-link logout" href="#">登出</a>`);
+    $('.navbar-right').html(`<a class="nav-link logout" href="#">登出</a>`);
   } else {
-    $('.login').show();
     $('.step1').hide();
+    if (getCookie('email') != "") {
+      $('#email').val(getCookie('email'));
+      $('#rememberEmail').attr('checked', true);
+    }
+    $('.login').show();
   }
   const query2 = new AV.Query('option');
   query2.equalTo('optionName', 'sysToggle');
@@ -64,6 +100,11 @@ $('#form-login').submit(function (e) {
     if (User.get("role") != "Tutee") {
       AV.User.logOut();
     } else {
+      if ($('#rememberEmail').is(":checked")) {
+        setCookie('email', username);
+      } else {
+        rmCookie('email');
+      }
       setTimeout(() => {
         location.reload();
       }, 50);

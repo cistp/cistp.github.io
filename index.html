@@ -8,7 +8,6 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/select2.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="css/scheduler.css">
 </head>
@@ -55,7 +54,13 @@
                   <input type="password" class="form-control" name="pass" id="pass" placeholder="Enter Your Password"
                       required>
               </div>
-              <button type="submit" class="btn btn-primary col-12">Login</button>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="rememberEmail" id="rememberEmail" value="checkedValue">
+                  Remember email
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary col-12 mt-2">Login</button>
             </form>
           </div>
         </div>
@@ -155,7 +160,6 @@
     <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.8.0/dist/av-min.js"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="js/select2.min.js"></script>
     <script src="js/scheduling.js"></script>
 </body>
 
