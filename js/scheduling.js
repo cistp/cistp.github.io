@@ -50,6 +50,9 @@ AV.init({
   }
   
 $(document).ready(function () {
+  if (getCookie('language') == "zh_cn") {
+    location.href = 'index_cn.html'
+  }
   const currentUser = AV.User.current();
   if (currentUser && currentUser.get('role') == "Tutee") {
     $('.navbar-right').html(`<a class="nav-link logout" href="#">Logout</a>`);
@@ -734,4 +737,10 @@ $('.prev4').click(function (e) {
   setTimeout(() => {
     $(".step3").fadeIn();
   }, 500);
+});
+
+$('.gotoCn').click(function (e) { 
+  e.preventDefault();
+  setCookie('language', 'zh_cn');
+  location.href = 'index_cn.html';
 });

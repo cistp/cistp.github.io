@@ -50,6 +50,9 @@ function getCookie(cookieName) {
 }
 
 $(document).ready(function () {
+  if (getCookie('language') != "zh_cn") {
+    location.href = 'index.html'
+  }
   const currentUser = AV.User.current();
   if (currentUser && currentUser.get('role') == "Tutee") {
     $('.navbar-right').html(`<a class="nav-link logout" href="#">登出</a>`);
@@ -734,4 +737,10 @@ $('.prev4').click(function (e) {
   setTimeout(() => {
     $(".step3").fadeIn();
   }, 500);
+});
+
+$('.gotoEn').click(function (e) { 
+  e.preventDefault();
+  setCookie('language', 'en');
+  location.href = 'index.html';
 });
