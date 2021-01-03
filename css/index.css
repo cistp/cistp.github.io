@@ -43,7 +43,7 @@
 .container {
     position: relative;
     top: 30px;
-    width: 1000px;
+    margin: auto;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;

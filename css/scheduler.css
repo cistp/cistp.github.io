@@ -26,6 +26,12 @@ h2 {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 10vh;
     background: #f2f2f2;
+    margin: auto;
+    padding: 15px;
+}
+
+.login {
+    margin: auto;
+    padding: 15px;
 }
