@@ -69,7 +69,6 @@ $(document).ready(function () {
   query2.find().then((optionVal) => {
     if (optionVal[0].get('value').length != 0) {
       $('.main').html(`<div class="container-fluid">
-      <h1>您好，歡迎使用CIS輔導計劃課程預約系統</h1>
       <div class="unavailable" style="position: relative; top: 15px;">
         <div class="card text-white bg-danger" style="margin: auto; width: fit-content; padding: 10px;">
           <div class="card-body">

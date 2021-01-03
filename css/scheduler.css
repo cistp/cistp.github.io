@@ -19,3 +19,13 @@ h2 {
     line-height: 32px;
     margin: 0 0 72px;
 }
+
+.main {
+	width: 100%;
+    min-height: 100vh;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10vh;
+    background: #f2f2f2;
+}
