@@ -1,4 +1,4 @@
-let tutorID, date, user, tutorsName, time, class__, tAmount, rn, classInstance, tutorEmail, classLimit, amountCount;
+let tutorID, date, user, tutorsName, time, class__, tAmount, rn, classInstance, tutorEmail;
 let dateList = [];
 
 const { Query, User } = AV;
@@ -186,7 +186,6 @@ $('#selTime').change(function (e) {
   const query = new AV.Query('tuteeList');
   query.equalTo('user', AV.User.current());
   query.find().then((tutee) => {
-    amountCount = tutee[0].get('limiter');
     name = tutee[0].get('name');
     email = tutee[0].get('email');
     $('#name').val(name);
@@ -215,6 +214,14 @@ $('.scheduleClass').click(function (e) {
   query2.equalTo('optionName', 'classesLimit');
   query2.find().then((val) => {
     if (val[0].get('value').length != 0) {
+      let amountCount = 0;
+      const classLimit = val.get('value')[0];
+      for (let index = 0; index < classInstance.length; index++) {
+        const cls = classInstance[index];
+        if (cls.get('tutee').includes(name)) {
+          amountCount++;
+        }
+      }
       if (amountCount >= classLimit) {
         alert("Unable to Schedule Class. Reason: You've scheduled too many classes.");
         setTimeout(() => {

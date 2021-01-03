@@ -186,7 +186,6 @@ $('#selTime').change(function (e) {
   const query = new AV.Query('tuteeList');
   query.equalTo('user', AV.User.current());
   query.find().then((tutee) => {
-    amountCount = tutee[0].get('limiter');
     name = tutee[0].get('name');
     email = tutee[0].get('email');
     $('#name').val(name);
@@ -215,6 +214,14 @@ $('.scheduleClass').click(function (e) {
     query2.equalTo('optionName', 'classesLimit');
     query2.find().then((val) => {
       if (val[0].get('value').length != 0) {
+        let amountCount = 0;
+        const classLimit = val.get('value')[0];
+        for (let index = 0; index < classInstance.length; index++) {
+          const cls = classInstance[index];
+          if (cls.get('tutee').includes(name)) {
+            amountCount++;
+          }
+        }
         if (amountCount >= classLimit) {
           alert("無法預約此課程. 原因: 您預約了太多的課程。");
           setTimeout(() => {
