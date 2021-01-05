@@ -398,7 +398,7 @@ $('.scheduleClass').click(function (e) {
             <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
             <!--<![endif]-->
             <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
-            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]--><img align="center" alt="Signup Success" border="0" class="center fixedwidth" src="https://raw.githubusercontent.com/Da-Dog23/da-dog23.github.io/main/IMG_0068.jpg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 100px; display: block;" title="Signup Success" width="100"/>
+            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]--><img align="center" alt="Signup Success" border="0" class="center fixedwidth" src="https://raw.githubusercontent.com/cistp/cistp.github.io/main/IMG_0068.jpg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 100px; display: block;" title="Signup Success" width="100"/>
             <!--[if mso]></td></tr></table><![endif]-->
             </div>
             <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
@@ -433,7 +433,7 @@ $('.scheduleClass').click(function (e) {
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">如果您有任何問題，歡迎您隨時與我們聯繫.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">如果您不再想參加此課程。 點擊下面的鏈接取消.</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><a href="https://cistp.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}">https://da-dog23.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}</a></p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><a href="https://cistp.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}">https://cistp.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}</a></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">期待您的到來!</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
@@ -627,7 +627,7 @@ $('.scheduleClass').click(function (e) {
             <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
             <!--<![endif]-->
             <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
-            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]--><img align="center" alt="Signup Success" border="0" class="center fixedwidth" src="https://raw.githubusercontent.com/Da-Dog23/da-dog23.github.io/main/IMG_0068.jpg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 100px; display: block;" title="Signup Success" width="100"/>
+            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]--><img align="center" alt="Signup Success" border="0" class="center fixedwidth" src="https://raw.githubusercontent.com/cistp/cistp.github.io/main/IMG_0068.jpg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 100px; display: block;" title="Signup Success" width="100"/>
             <!--[if mso]></td></tr></table><![endif]-->
             </div>
             <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
