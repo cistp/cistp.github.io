@@ -514,7 +514,7 @@ $('#form-tuteeRegister').submit(function (e) {
                 tuteelist.set('name', $('#tuteeName').val());
                 tuteelist.set('tuteePass', $('#tuteePass').val());
                 tuteelist.save().then((tuteelist) => {
-                    $(this).closest('form').find("input[type=text], textarea, input[type=number]").val("");
+                    $(this).closest('form').find("input[type=text], textarea, input[type=number], input[type=email]").val("");
                 }, (error) => {
                     alert(error);
                 });
