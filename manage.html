@@ -41,6 +41,9 @@
                 <li class="nav-item">
                     <a class="nav-link tutee" href="#">Tutee List</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link tutor" href="#">Tutor List</a>
+                </li>
             </ul>
             <ul class="navbar-nav navbar-right">
                 <a class="nav-link logout" href="#">Logout</a>
@@ -196,33 +199,12 @@
                 </div>
             </div>
             <hr />
-            <button type="button" name="listTutor" id="listTutor" class="btn btn-warning" btn-lg btn-block">List All Tutor</button>
-            <div class="ListAllTutor"></div>
-            <div class="modal fade" id="deleteTutor" tabindex="-1" role="dialog" aria-labelledby="deleteTutor" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Delete Tutor</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                        </div>
-                        <div class="modal-body" id="rmModal">
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirm">Confirm</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr />
             <h4 class="card-title">Volunteer Hour:</h4>
             <select id='selTutorVH' class="form-control" style="width: auto;">
                 <option value='0'>Select Tutor</option>
             </select>
             <div class="VHcontrolElement mt-2"></div>
+            <hr />
         </div>
     </div>
     <div class="tuteeTab" style="display: none;">
@@ -257,6 +239,43 @@
                     </div>
                 </div>
             </table>
+        </div>
+    </div>
+    <div class="tutorTab" style="display: none;">
+        <div class="container-fluid" style="position: relative; top: 70px;">
+            <div class="ListAllTutor">
+                <h4 class="card-title">Tutor List: </h4>
+                <table class="table" style="position: relative; top:15px;">
+                    <thead>
+                        <tr>
+                            <th scope="col">objectID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Volunteer Hour</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="Listtutor"></tbody>
+                </table>
+            </div>
+            <div class="modal fade" id="deleteTutor" tabindex="-1" role="dialog" aria-labelledby="deleteTutor" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Tutor</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body" id="rmModal">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary confirm">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Optional JavaScript -->
