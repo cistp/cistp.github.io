@@ -53,6 +53,24 @@ $(document).ready(function () {
   if (getCookie('language') != "zh_cn") {
     location.href = 'index.html'
   }
+  const query2 = new AV.Query('option');
+  query2.equalTo('optionName', 'sysToggle');
+  query2.find().then((optionVal) => {
+    if (optionVal[0].get('value').length != 0) {
+      $('.main').html(`<div class="container-fluid">
+      <div class="unavailable" style="position: relative; top: 15px;">
+        <div class="card text-white bg-danger" style="margin: auto; width: fit-content; padding: 10px;">
+          <div class="card-body">
+            <h4 class="card-title">預約時間已過/未到</h4>
+            <h5>預約通道目前不可用</h5>
+            <small>如果您有任何問題，歡迎您隨時與我們聯繫!</small>
+          </div>
+        </div>
+      </div>
+    </div>`);
+    return;
+    }
+  })
   const currentUser = AV.User.current();
   if (currentUser && currentUser.get('role') == "Tutee") {
     $('.navbar-right').html(`<a class="nav-link logout" href="#">登出</a>`);
@@ -64,24 +82,6 @@ $(document).ready(function () {
     }
     $('.login').show();
   }
-  const query2 = new AV.Query('option');
-  query2.equalTo('optionName', 'sysToggle');
-  query2.find().then((optionVal) => {
-    if (optionVal[0].get('value').length != 0) {
-      $('.main').html(`<div class="container-fluid">
-      <div class="unavailable" style="position: relative; top: 15px;">
-        <div class="card text-white bg-danger" style="margin: auto; width: fit-content; padding: 10px;">
-          <div class="card-body">
-            <h4 class="card-title">Error</h4>
-            <h5>預約通道目前不可用</h5>
-            <small>如果您有任何問題，歡迎您隨時與我們聯繫!</small>
-          </div>
-        </div>
-      </div>
-    </div>`);
-    return;
-    }
-  })
   const query = new AV.Query('tutorList');
   query.equalTo('isTutor', true);
   query.find().then((tutors) => {

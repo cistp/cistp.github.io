@@ -85,7 +85,6 @@ $(document).ready(function () {
         const name = tutor.get('tutorName');
         const id = tutor.get('user').id;
         $("#selTutor").append("<option value='" + id + "'>" + name + "</option>");
-        $("#selTutorVH").append("<option value='" + tutors[index].id + "'>" + name + "</option>");
     }
     });
     const query4 = new AV.Query('option');
@@ -279,7 +278,7 @@ $('.tutor').click(function (e) {
     query.find().then((tutors) => {
         for (let index = 0; index < tutors.length; index++) {
             const tutor = tutors[index];
-            $('.Listtutor').append(`<tr><td>${tutor.get("user").id}</td><td>${tutor.get("tutorName")}</td><td>${tutor.get("volunteerHour")}</td><td><button type="button" class="tutorSchedule btn btn-outline-primary ml-1" data-toggle="modal" data-target="#schechduleList" value="${tutor.get("user").id}" tutor="${tutor.get("tutorName")}"><i class="fa fa-calendar" aria-hidden="true"></i></button><button type="button" class="removeTutor btn btn-outline-primary ml-1" data-toggle="modal" data-target="#deleteTutor" value="${tutor.id}" tutor="${tutor.get("tutorName")}"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td></tr>`);
+            $('.Listtutor').append(`<tr><td>${tutor.get("user").id}</td><td>${tutor.get("tutorName")}</td><td><button type="button" class="tutorSchedule btn btn-outline-primary ml-1" data-toggle="modal" data-target="#schechduleList" value="${tutor.get("user").id}" tutor="${tutor.get("tutorName")}"><i class="fa fa-calendar" aria-hidden="true"></i></button><button type="button" class="removeTutor btn btn-outline-primary ml-1" data-toggle="modal" data-target="#deleteTutor" value="${tutor.id}" tutor="${tutor.get("tutorName")}"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td></tr>`);
         }
     });
 });
@@ -538,36 +537,4 @@ $('#form-tuteeRegister').submit(function (e) {
       }, (error) => {
         alert("User already exists");
       });
-});
-
-$('#selTutorVH').change(function (e) {
-    e.preventDefault();
-    const query = new AV.Query('tutorList');
-    query.get($(this).val()).then((tutorInstance) => {
-        const VH = tutorInstance.get("volunteerHour");
-        $('.VHcontrolElement').html(`<div class="d-flex justify-content-start">
-        <button type="button" name="VHSub" id="VHSub" class="btn btn-outline-primary mr-2" btn-lg btn-block"><i class="fa fa-minus" aria-hidden="true"></i></button>
-        <input type="text" class="form-control input-VH" style="width: 8%; text-align: center;" value="${VH}">
-        <button type="button" name="VHAdd" id="VHAdd" class="btn btn-outline-primary ml-2" btn-lg btn-block"><i class="fa fa-plus" aria-hidden="true"></i></button>
-    </div>
-    <div class="mt-2">
-        <button type="button" name="saveVH" id="saveVH" class="btn btn-primary" btn-lg btn-block">Save</button>
-    </div>`);
-    });
-});
-
-$('.VHcontrolElement').on('click', '#saveVH', function () {
-    const tutor = AV.Object.createWithoutData('tutorList', $('#selTutorVH').val());
-    tutor.set('volunteerHour', parseFloat($('.input-VH').val()));
-    tutor.save();
-    $('.VHcontrolElement').html("");
-    $('#selTutorVH').val('0');
-});
-
-$('.VHcontrolElement').on('click', '#VHAdd', function () {
-    $('.input-VH').val(parseFloat($('.input-VH').val()) + 0.25);
-});
-
-$('.VHcontrolElement').on('click', '#VHSub', function () {
-    $('.input-VH').val(parseFloat($('.input-VH').val()) - 0.25);
 });
