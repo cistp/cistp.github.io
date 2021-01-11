@@ -61,7 +61,7 @@ $(document).ready(function () {
       <div class="unavailable" style="position: relative; top: 15px;">
         <div class="card text-white bg-danger" style="margin: auto; width: fit-content; padding: 10px;">
           <div class="card-body">
-            <h4 class="card-title">Scheduling time has passed/not arrived</h4>
+            <h4 class="card-title">It's not the time yet</h4>
             <h5>Scheduling is currently unavailable</h5>
             <small>If you have any question, contact our officers for help!</small>
           </div>
