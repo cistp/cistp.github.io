@@ -151,9 +151,21 @@ $('#selTutor').change(function (e) {
     if (dateListNew.length == 0) {
       dateListNew = ["2999-1-1"];
     }
+    Date.prototype.addDays = function(days) {
+      var date = new Date(this.valueOf());
+      date.setDate(date.getDate() + days);
+      return date;
+    }
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
     $("#selDate").flatpickr({
       dateFormat: "Y-m-d",
       enable: dateListNew,
+      disable: [
+        function(date) {
+            return (date >= today.addDays(7));
+        }
+      ],
       inline: true
     });
   });
@@ -660,7 +672,7 @@ $('.scheduleClass').click(function (e) {
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${tAmount} of 2 spots filled</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you have any question, feel free to contact our officers for help.</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you can't attend to this class, place contact our officers with the class date and time</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you can't attend to this class, Please contact our officers with the class date and time</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Thank you for your contribution!</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
