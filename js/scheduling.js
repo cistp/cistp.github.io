@@ -138,7 +138,7 @@ $('#selTutor').change(function (e) {
     classInstance = dates;
     for (let index = 0; index < dates.length; index++) {
       const date = dates[index];
-      if (date.get('tuteeAmount') <= 2) {
+      if (date.get('tuteeAmount') < 2) {
         array.push(date.get('date'));
       }
     };
@@ -227,7 +227,7 @@ $('.scheduleClass').click(function (e) {
   query2.find().then((val) => {
     if (val[0].get('value').length != 0) {
       let amountCount = 0;
-      const classLimit = val.get('value')[0];
+      const classLimit = val[0].get('value')[0];
       for (let index = 0; index < classInstance.length; index++) {
         const cls = classInstance[index];
         if (cls.get('tutee').includes(realName)) {
@@ -239,7 +239,6 @@ $('.scheduleClass').click(function (e) {
         setTimeout(() => {
           location.reload();
         }, 100);
-        return;
       }
     }
   });
@@ -433,19 +432,19 @@ $('.scheduleClass').click(function (e) {
             <div style="color:#555555;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
             <div style="line-height: 1.5; font-size: 12px; color: #555555; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 18px;">
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Hi ${realName},</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Thank you for joining the CIS Tutoring Program.</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Thank you for participating the CIS Tutoring Program.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Class Date/Time:</strong></p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${time} - ${date}(PST)</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${date} at ${time}(PST)</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Tutor:</strong></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${tutorsName}</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Class Attendance:</strong></p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${tAmount} of 2 spots filled</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${tAmount} out of 2 spots filled</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Location:</strong></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Discord - Room ${rn}</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you have any question, feel free to contact our officers for help.</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you no longer want to attend to this class. Click the link below to cancel.</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you no longer want to attend this class. Click the link below to cancel.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><a href="https://cistp.github.io/cancel.html?name=${realName}&date=${date}&time=${time}&id=${class__}">https://cistp.github.io/cancel.html?name=${realName}&date=${date}&time=${time}&id=${class__}</a></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">See you soon!</p>
@@ -662,15 +661,15 @@ $('.scheduleClass').click(function (e) {
             <div style="color:#555555;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
             <div style="line-height: 1.5; font-size: 12px; color: #555555; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 18px;">
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Hi ${tutorsName},</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">A Tutee is attending to your class.</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">A Tutee has scheduled to your class.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Class Date/Time:</strong></p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${time} - ${date}(PST)</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${date} at ${time}(PST)</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Tutee:</strong></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${realName}</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Class Attendance:</strong></p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${tAmount} of 2 spots filled</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"></p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${tAmount} out of 2 spots filled</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you have any question, feel free to contact our officers for help.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you can't attend to this class, Please contact our officers with the class date and time</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
@@ -727,7 +726,7 @@ $('.scheduleClass').click(function (e) {
             }, 500);
         }
       });
-    }, Math.floor(Math.random() * 2001));
+    }, Math.floor(Math.random() * 501));
   })
 })
 
