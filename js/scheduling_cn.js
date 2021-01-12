@@ -227,6 +227,7 @@ $('.scheduleClass').click(function (e) {
           setTimeout(() => {
             location.reload();
           }, 100);
+          return;
         }
       }
     });
