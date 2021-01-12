@@ -163,7 +163,7 @@ $('#selTutor').change(function (e) {
       enable: dateListNew,
       disable: [
         function(date) {
-            return (date >= today.addDays(7));
+            return (date >= today.addDays(14));
         }
       ],
       inline: true
