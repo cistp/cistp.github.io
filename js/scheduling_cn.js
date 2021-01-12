@@ -198,9 +198,9 @@ $('#selTime').change(function (e) {
   const query = new AV.Query('tuteeList');
   query.equalTo('user', AV.User.current());
   query.find().then((tutee) => {
-    name = tutee[0].get('name');
+    realName = tutee[0].get('name');
     email = tutee[0].get('email');
-    $('#name').val(name);
+    $('#name').val(realName);
     $('#emailTutee').val(email);
     $('#date').val(date);
     $('#time').val(time);
@@ -230,7 +230,7 @@ $('.scheduleClass').click(function (e) {
         const classLimit = val.get('value')[0];
         for (let index = 0; index < classInstance.length; index++) {
           const cls = classInstance[index];
-          if (cls.get('tutee').includes(name)) {
+          if (cls.get('tutee').includes(realName)) {
             amountCount++;
           }
         }
@@ -246,7 +246,7 @@ $('.scheduleClass').click(function (e) {
     setTimeout(() => {
       const query = new AV.Query('Classes');
       query.get(class__).then((class_) => {
-        if (class_.get('tutee').includes(name)) {
+        if (class_.get('tutee').includes(realName)) {
           return;
         }
         if (!AV.User.current()) {
@@ -259,7 +259,7 @@ $('.scheduleClass').click(function (e) {
           }, 100);
         } else {
           const classes = AV.Object.createWithoutData('Classes', class__);
-          classes.add('tutee', name);
+          classes.add('tutee', realName);
           classes.increment('tuteeAmount', 1);
           classes.save();
           Email.send({
@@ -432,7 +432,7 @@ $('.scheduleClass').click(function (e) {
             <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
             <div style="color:#555555;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
             <div style="line-height: 1.5; font-size: 12px; color: #555555; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 18px;">
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">你好 ${name},</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">你好 ${realName},</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">感謝您加入CIS輔導計劃。</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>課程日期/時間:</strong></p>
@@ -446,7 +446,7 @@ $('.scheduleClass').click(function (e) {
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">如果您有任何問題，歡迎您隨時與我們聯繫.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">如果您不再想參加此課程。 點擊下面的鏈接取消.</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><a href="https://cistp.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}">https://cistp.github.io/cancel.html?name=${name}&date=${date}&time=${time}&id=${class__}</a></p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><a href="https://cistp.github.io/cancel.html?name=${realName}&date=${date}&time=${time}&id=${class__}">https://cistp.github.io/cancel.html?name=${realName}&date=${date}&time=${time}&id=${class__}</a></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">期待您的到來!</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
@@ -495,7 +495,7 @@ $('.scheduleClass').click(function (e) {
             SecureToken : "f9e49ab6-a7e5-434e-894b-1b9e23cffb0b",
             To : tutorEmail,
             From : "cistp20@gmail.com",
-            Subject : `${name} is attending to your class`,
+            Subject : `${realName} is attending to your class`,
             Body : `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
             <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
             <head>
@@ -667,7 +667,7 @@ $('.scheduleClass').click(function (e) {
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Class Date/Time:</strong></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${time} - ${date}(PST)</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Tutee:</strong></p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${name}</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${realName}</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Class Attendance:</strong></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${tAmount} of 2 spots filled</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
