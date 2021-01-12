@@ -126,6 +126,14 @@ $('.navbar-right').on('click', '.logout', function () {
 
 $('#selTutor').change(function (e) { 
   e.preventDefault();
+  Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
+  let limitDay = today.addDays(12).toISOString().split('T')[0];
   $(".step1").hide();
   $(".step2").show();
   tutorID = $(this).val();
@@ -139,7 +147,9 @@ $('#selTutor').change(function (e) {
     for (let index = 0; index < dates.length; index++) {
       const date = dates[index];
       if (date.get('tuteeAmount') < 2) {
-        array.push(date.get('date'));
+        if (date.get('date') <= limitDay) {
+          array.push(date.get('date'));
+        }
       }
     };
     uArray = unique(array);
@@ -151,21 +161,9 @@ $('#selTutor').change(function (e) {
     if (dateList.length == 0) {
       dateListNew = ["2999-1-1"];
     }
-    Date.prototype.addDays = function(days) {
-      var date = new Date(this.valueOf());
-      date.setDate(date.getDate() + days);
-      return date;
-    }
-    let today = new Date();
-    today.setHours(0, 0, 0, 0);
     $("#selDate").flatpickr({
       dateFormat: "Y-m-d",
       enable: dateListNew,
-      disable: [
-        function(date) {
-            return (date >= today.addDays(14));
-        }
-      ],
       inline: true
     });
   });
@@ -661,7 +659,7 @@ $('.scheduleClass').click(function (e) {
             <div style="color:#555555;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
             <div style="line-height: 1.5; font-size: 12px; color: #555555; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 18px;">
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Hi ${tutorsName},</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">A Tutee has scheduled to your class.</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">A Tutee has scheduled your class.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"><strong>Class Date/Time:</strong></p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${date} at ${time}(PST)</p>
@@ -671,7 +669,7 @@ $('.scheduleClass').click(function (e) {
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">${tAmount} out of 2 spots filled</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you have any question, feel free to contact our officers for help.</p>
-            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you can't attend to this class, Please contact our officers with the class date and time</p>
+            <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">If you can't attend this class, please contact our officers with the class date and time.</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">Thank you for your contribution!</p>
             <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
