@@ -51,6 +51,9 @@ $(document).ready(function () {
                     $('.listTable').append(comb);
                 })
             }
+        }
+        for(var i = 0, len = listClasses.length; i < len; i++){
+            const startTime = listClasses[i].attributes.startTime;
             if (startTime == "16:00") {
                 const tutorID = listClasses[i].attributes.tutor.id;
                 const tutee = listClasses[i].attributes.tutee;
@@ -63,6 +66,9 @@ $(document).ready(function () {
                     $('.listTable').append(comb);
                 })
             }
+        }
+        for(var i = 0, len = listClasses.length; i < len; i++){
+            const startTime = listClasses[i].attributes.startTime;
             if (startTime == "17:00") {
                 const tutorID = listClasses[i].attributes.tutor.id;
                 const tutee = listClasses[i].attributes.tutee;
